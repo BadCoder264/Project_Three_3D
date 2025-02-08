@@ -3,13 +3,13 @@ using UnityEngine;
 
 public class WeaponSwitcher : MonoBehaviour
 {
-    [SerializeField] private InputListner inputListner;
+    [SerializeField] private InputListener inputListener;
 
     public int CurrentWeaponIndex { get; set; }
 
     public void Initialize(List<GameObject> weaponList)
     {
-        inputListner.PlayerWeaponsList = weaponList;
+        inputListener.PlayerWeaponsList = weaponList;
         CurrentWeaponIndex = 0;
         UpdateWeaponVisibility();
     }
@@ -18,15 +18,15 @@ public class WeaponSwitcher : MonoBehaviour
     {
         CurrentWeaponIndex += direction;
 
-        if (inputListner != null)
+        if (inputListener != null)
         {
-            if (CurrentWeaponIndex >= inputListner.PlayerWeaponsList.Count)
+            if (CurrentWeaponIndex >= inputListener.PlayerWeaponsList.Count)
             {
                 CurrentWeaponIndex = 0;
             }
             else if (CurrentWeaponIndex < 0)
             {
-                CurrentWeaponIndex = inputListner.PlayerWeaponsList.Count - 1;
+                CurrentWeaponIndex = inputListener.PlayerWeaponsList.Count - 1;
             }
 
             UpdateWeaponVisibility();
@@ -35,9 +35,9 @@ public class WeaponSwitcher : MonoBehaviour
 
     private void UpdateWeaponVisibility()
     {
-        for (int i = 0; i < inputListner.PlayerWeaponsList.Count; i++)
+        for (int i = 0; i < inputListener.PlayerWeaponsList.Count; i++)
         {
-            inputListner.PlayerWeaponsList[i].SetActive(i == CurrentWeaponIndex);
+            inputListener.PlayerWeaponsList[i].SetActive(i == CurrentWeaponIndex);
         }
     }
 }

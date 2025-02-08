@@ -29,8 +29,7 @@ public class CameraRotate : MonoBehaviour
         float mouseX = Input.GetAxis("Mouse X") * lookSpeed;
         float mouseY = Input.GetAxis("Mouse Y") * lookSpeed;
 
-        rotationX -= mouseY;
-        rotationX = Mathf.Clamp(rotationX, -upDownRange, upDownRange);
+        rotationX = Mathf.Clamp(rotationX - mouseY, -upDownRange, upDownRange);
 
         transform.localRotation = Quaternion.Euler(rotationX, 0f, 0f);
         transform.parent.Rotate(Vector3.up * mouseX);

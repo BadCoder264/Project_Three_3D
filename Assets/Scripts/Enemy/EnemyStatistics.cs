@@ -24,7 +24,7 @@ public class EnemyStatistics : MonoBehaviour
             currentHealth = value;
             if (currentHealth <= 0)
             {
-                HandleDeath();
+                Death();
             }
         }
     }
@@ -44,6 +44,7 @@ public class EnemyStatistics : MonoBehaviour
         {
             case AIState.Pursue:
                 enemyMovement?.MoveTowardsPlayer(playerTarget.transform.position, this);
+                timeSinceLastAttack = 0;
                 break;
 
             case AIState.Attack:
@@ -64,7 +65,7 @@ public class EnemyStatistics : MonoBehaviour
         CurrentHealth -= damageAmount;
     }
 
-    private void HandleDeath()
+    private void Death()
     {
         // Добавьте логику для смерти врага здесь
         Destroy(gameObject);

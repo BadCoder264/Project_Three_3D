@@ -1,55 +1,64 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class InputListner : MonoBehaviour
+public class InputListener : MonoBehaviour
 {
     [SerializeField] private CameraRotate cameraRotateController;
     [SerializeField] private PlayerMovement playerMovementController;
-    [SerializeField] private PickUpWeapon weaponPicker;
-    public List<GameObject> PlayerWeaponsList;
-    public List<PlayerShoot> PlayerShootingList;
+    [SerializeField] private Interactive interactive;
+    public List<GameObject> PlayerWeaponsList = new List<GameObject>();
+    [SerializeField] private PlayerAttack playerAttack;
+    public List<PlayerShoot> PlayerShootingList = new List<PlayerShoot>();
     public WeaponSwitcher weaponSwitcherController;
-    [SerializeField] private WaveManager waveManager;
     [SerializeField] private KeyCode sprintKey = KeyCode.LeftShift;
-    [SerializeField] private KeyCode pickUpKey = KeyCode.E;
-    [SerializeField] private KeyCode shootKey = KeyCode.Mouse0;
     [SerializeField] private KeyCode interactiveKey = KeyCode.E;
+    [SerializeField] private KeyCode shootKey = KeyCode.Mouse0;
 
     private void Start()
     {
-        PlayerShootingList = new List<PlayerShoot>();
-        if (weaponSwitcherController != null)
-        {
-            weaponSwitcherController.Initialize(PlayerWeaponsList);
-        }
+        weaponSwitcherController?.Initialize(PlayerWeaponsList);
     }
 
     private void Update()
     {
-        cameraRotateController?.RotateCamera();
+        if (cameraRotateController != null)
+        {
+            cameraRotateController.RotateCamera();
+        }
 
-        playerMovementController?.Move();
-        playerMovementController?.Sprint(Input.GetKey(sprintKey));
+        if (playerMovementController != null)
+        {
+            playerMovementController.Move();
+            playerMovementController.Sprint(Input.GetKey(sprintKey));
+        }
 
-        weaponPicker?.PickUp(Input.GetKey(pickUpKey));
+        if (interactive != null)
+        {
+            interactive._Interactive(Input.GetKeyDown(interactiveKey));
+        }
 
         if (weaponSwitcherController != null)
         {
-            if (Input.GetAxis("Mouse ScrollWheel") > 0f)
+            float scroll = Input.GetAxis("Mouse ScrollWheel");
+            if (scroll > 0f)
             {
                 weaponSwitcherController.SwitchWeapon(1);
             }
-            else if (Input.GetAxis("Mouse ScrollWheel") < 0f)
+            else if (scroll < 0f)
             {
                 weaponSwitcherController.SwitchWeapon(-1);
             }
         }
 
-        if (PlayerShootingList.Count > 0 && weaponSwitcherController.CurrentWeaponIndex >= 0)
+        if (playerAttack != null)
         {
-            PlayerShootingList[weaponSwitcherController.CurrentWeaponIndex].Shoot(Input.GetKey(shootKey));
+            playerAttack.ExecuteAttack(Input.GetKeyDown(shootKey));
         }
 
-        waveManager?.OnWaveStartButtonPressed(Input.GetKeyDown(interactiveKey));
+        if (PlayerShootingList.Count > 0 &&
+            weaponSwitcherController.CurrentWeaponIndex > 0)
+        {
+            PlayerShootingList[weaponSwitcherController.CurrentWeaponIndex - 1].Shoot(Input.GetKey(shootKey));
+        }
     }
 }

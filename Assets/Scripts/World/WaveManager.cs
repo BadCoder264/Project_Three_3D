@@ -25,8 +25,7 @@ public class WaveManager : MonoBehaviour
 
     private void Start()
     {
-        UpdateWaveDisplay();
-        UpdateEnemyCountSlider();
+        UpdateUI();
     }
 
     private void Update()
@@ -41,29 +40,12 @@ public class WaveManager : MonoBehaviour
         UpdateUI();
     }
 
-    public void OnWaveStartButtonPressed(bool isPressed)
-    {
-        if (isPressed)
-        {
-            if (playerCamera != null)
-            {
-                Ray ray = playerCamera.ScreenPointToRay(Input.mousePosition);
-                if (Physics.Raycast(ray, out RaycastHit hit, rayDistance, raycastLayerMask))
-                {
-                    StartNewWave();
-                }
-            }
-        }
-    }
-
     public void StartNewWave()
     {
         if (!isWaveActive)
         {
             currentWaveIndex++;
-            initialMaxEnemiesPerWave += 5; // ”величиваем максимальное количество врагов
-
-            UpdateEnemyCountSlider();
+            initialMaxEnemiesPerWave += 5;
             isWaveActive = true;
 
             float spawnInterval = Random.Range(0.2f, 0.4f);

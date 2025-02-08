@@ -12,7 +12,6 @@ public class EnemyAttack : MonoBehaviour
             var playerStatistics = enemyStatistics.playerTarget.GetComponent<PlayerStatistics>();
             if (playerStatistics != null)
             {
-                Debug.Log("Attack");
                 playerStatistics.Damage(attackDamage);
             }
         }

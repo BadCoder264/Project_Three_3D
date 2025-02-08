@@ -17,24 +17,18 @@ public class PlayerMovement : MonoBehaviour
 
     public void Move()
     {
-        if (playerCamera != null)
+        if (playerCamera != null && playerRigidbody != null)
         {
             Vector3 forward = playerCamera.transform.forward;
             Vector3 right = playerCamera.transform.right;
 
             forward.y = 0;
             right.y = 0;
-            forward.Normalize();
-            right.Normalize();
 
-            float moveHorizontal = Input.GetAxis("Horizontal");
-            float moveVertical = Input.GetAxis("Vertical");
-            Vector3 movement = forward * moveVertical + right * moveHorizontal;
+            Vector3 movement = forward.normalized * Input.GetAxis("Vertical") +
+                               right.normalized * Input.GetAxis("Horizontal");
 
-            if (playerRigidbody != null)
-            {
-                playerRigidbody.velocity = new Vector3(movement.x * currentSpeed, playerRigidbody.velocity.y, movement.z * currentSpeed);
-            }
+            playerRigidbody.velocity = new Vector3(movement.x * currentSpeed, playerRigidbody.velocity.y, movement.z * currentSpeed);
         }
     }
 
