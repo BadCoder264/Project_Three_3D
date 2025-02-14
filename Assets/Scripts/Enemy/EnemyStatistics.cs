@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -8,32 +9,39 @@ public class EnemyStatistics : MonoBehaviour
     public GameObject playerTarget;
     public NavMeshAgent navMeshAgent;
 
+    [SerializeField] private int minHealth;
     [SerializeField] private int maxHealth;
-    [SerializeField] private int scoreReward;
+    [SerializeField] private int minScoreReward;
+    [SerializeField] private int maxScoreReward;
     [SerializeField] private float attackRange;
     [SerializeField] private float attackCooldown;
+    [SerializeField] private List<GameObject> enemyModels;
     [SerializeField] private EnemyMovement enemyMovement;
     [SerializeField] private EnemyAttack enemyAttack;
 
-    private int currentHealth;
-    private int CurrentHealth
+    private int _currentHealth;
+    private int currentHealth
     {
-        get => currentHealth;
+        get => _currentHealth;
         set
         {
-            currentHealth = value;
-            if (currentHealth <= 0)
+            _currentHealth = value;
+            if (_currentHealth <= 0)
             {
                 Death();
             }
         }
     }
+    private int currentScoreReward;
     private float timeSinceLastAttack;
 
     private void Start()
     {
         playerTarget = GameObject.FindGameObjectWithTag("Player");
-        currentHealth = maxHealth;
+        int indexPlayerModel = Random.Range(0, enemyModels.Count);
+        enemyModels[indexPlayerModel].SetActive(true);
+        currentHealth = Random.Range(minHealth, maxHealth);
+        currentScoreReward = Random.Range(minScoreReward, maxScoreReward);
     }
 
     private void Update()
@@ -61,8 +69,8 @@ public class EnemyStatistics : MonoBehaviour
 
     public void Damage(int damageAmount)
     {
-        playerTarget.GetComponent<PlayerStatistics>().Score += scoreReward;
-        CurrentHealth -= damageAmount;
+        playerTarget.GetComponent<PlayerStatistics>().Score += currentScoreReward;
+        currentHealth -= damageAmount;
     }
 
     private void Death()

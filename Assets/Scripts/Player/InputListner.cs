@@ -11,7 +11,7 @@ public class InputListener : MonoBehaviour
     public List<PlayerShoot> PlayerShootingList = new List<PlayerShoot>();
     public WeaponSwitcher weaponSwitcherController;
     [SerializeField] private KeyCode sprintKey = KeyCode.LeftShift;
-    [SerializeField] private KeyCode interactiveKey = KeyCode.E;
+    public KeyCode interactiveKey = KeyCode.E;
     [SerializeField] private KeyCode shootKey = KeyCode.Mouse0;
 
     private void Start()

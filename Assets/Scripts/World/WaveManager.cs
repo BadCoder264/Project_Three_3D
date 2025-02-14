@@ -7,16 +7,16 @@ using UnityEngine.UI;
 public class WaveManager : MonoBehaviour
 {
     [Header("Wave Settings")]
-    [SerializeField] private int initialMaxEnemiesPerWave;
-    [SerializeField] private float rayDistance;
-    [SerializeField] private LayerMask raycastLayerMask;
+    [SerializeField] private int currentWaveMaxEnemies;
+    [SerializeField] private int overallMaxEnemies;
+    [SerializeField] private float minSpawnIntervalEnemies;
+    [SerializeField] private float maxSpawnIntervalEnemies;
     [SerializeField] private Camera playerCamera;
-    [SerializeField] private List<GameObject> enemyPrefabs;
+    [SerializeField] private GameObject enemyPrefabs;
     [SerializeField] private List<Transform> spawnPoints;
 
     [Header("UI Elements")]
     [SerializeField] private TMP_Text waveDisplayText;
-    [SerializeField] private TMP_Text startWavePromptText;
     [SerializeField] private Slider enemyCountSlider;
 
     private int currentWaveIndex;
@@ -34,7 +34,7 @@ public class WaveManager : MonoBehaviour
 
         if (activeEnemies.Count == 0 && isWaveActive)
         {
-            EndCurrentWave();
+            isWaveActive = false;
         }
 
         UpdateUI();
@@ -45,23 +45,29 @@ public class WaveManager : MonoBehaviour
         if (!isWaveActive)
         {
             currentWaveIndex++;
-            initialMaxEnemiesPerWave += 5;
+            if (currentWaveMaxEnemies < overallMaxEnemies)
+            {
+                currentWaveMaxEnemies += 5;
+            }
+            else
+            {
+                currentWaveMaxEnemies = overallMaxEnemies;
+            }
             isWaveActive = true;
 
-            float spawnInterval = Random.Range(0.2f, 0.4f);
+            float spawnInterval = Random.Range(minSpawnIntervalEnemies, maxSpawnIntervalEnemies);
             StartCoroutine(SpawnEnemiesCoroutine(spawnInterval));
         }
     }
 
     private IEnumerator SpawnEnemiesCoroutine(float spawnInterval)
     {
-        for (int i = 0; i < initialMaxEnemiesPerWave; i++)
+        for (int i = 0; i < currentWaveMaxEnemies; i++)
         {
-            if (enemyPrefabs.Count > 0 && spawnPoints.Count > 0)
+            if (enemyPrefabs != null && spawnPoints.Count > 0)
             {
-                int enemyIndex = Random.Range(0, enemyPrefabs.Count);
                 int spawnIndex = Random.Range(0, spawnPoints.Count);
-                GameObject enemy = Instantiate(enemyPrefabs[enemyIndex], spawnPoints[spawnIndex].position, spawnPoints[spawnIndex].rotation);
+                GameObject enemy = Instantiate(enemyPrefabs, spawnPoints[spawnIndex].position, spawnPoints[spawnIndex].rotation);
                 activeEnemies.Add(enemy);
             }
 
@@ -69,16 +75,10 @@ public class WaveManager : MonoBehaviour
         }
     }
 
-    private void EndCurrentWave()
-    {
-        isWaveActive = false;
-    }
-
     private void UpdateUI()
     {
         UpdateWaveDisplay();
         UpdateEnemyCountSlider();
-        UpdateStartWavePrompt();
     }
 
     private void UpdateWaveDisplay()
@@ -93,17 +93,8 @@ public class WaveManager : MonoBehaviour
     {
         if (enemyCountSlider != null)
         {
-            enemyCountSlider.maxValue = initialMaxEnemiesPerWave;
+            enemyCountSlider.maxValue = currentWaveMaxEnemies;
             enemyCountSlider.value = activeEnemies.Count;
-        }
-    }
-
-    private void UpdateStartWavePrompt()
-    {
-        if (playerCamera != null && startWavePromptText != null)
-        {
-            Ray ray = playerCamera.ScreenPointToRay(Input.mousePosition);
-            startWavePromptText.gameObject.SetActive(Physics.Raycast(ray, rayDistance, raycastLayerMask));
         }
     }
 }
