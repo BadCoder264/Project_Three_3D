@@ -1,11 +1,10 @@
 using UnityEngine;
 
-public class EnemyAttack : MonoBehaviour
+public class EnemyMelee : MonoBehaviour, IEnemyAttack
 {
     [SerializeField] private int attackDamage;
-    [SerializeField] private LayerMask targetLayerMask;
 
-    public void ExecuteAttack(EnemyStatistics enemyStatistics)
+    public void Attack(EnemyStatistics enemyStatistics)
     {
         if (enemyStatistics.playerTarget != null)
         {

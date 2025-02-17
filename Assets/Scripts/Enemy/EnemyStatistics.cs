@@ -17,7 +17,9 @@ public class EnemyStatistics : MonoBehaviour
     [SerializeField] private float attackCooldown;
     [SerializeField] private List<GameObject> enemyModels;
     [SerializeField] private EnemyMovement enemyMovement;
-    [SerializeField] private EnemyAttack enemyAttack;
+    [SerializeField] private MonoBehaviour enemyAttack;
+
+    private IEnemyAttack enemyAttackInterface;
 
     private int _currentHealth;
     private int currentHealth
@@ -42,6 +44,8 @@ public class EnemyStatistics : MonoBehaviour
         enemyModels[indexPlayerModel].SetActive(true);
         currentHealth = Random.Range(minHealth, maxHealth);
         currentScoreReward = Random.Range(minScoreReward, maxScoreReward);
+
+        enemyAttackInterface = enemyAttack as IEnemyAttack;
     }
 
     private void Update()
@@ -58,9 +62,9 @@ public class EnemyStatistics : MonoBehaviour
             case AIState.Attack:
                 timeSinceLastAttack += Time.deltaTime;
 
-                if (enemyAttack != null && timeSinceLastAttack >= attackCooldown)
+                if (enemyAttackInterface != null && timeSinceLastAttack >= attackCooldown)
                 {
-                    enemyAttack.ExecuteAttack(this);
+                    enemyAttackInterface.Attack(this);
                     timeSinceLastAttack = 0;
                 }
                 break;
