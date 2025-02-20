@@ -5,7 +5,7 @@ public class WeaponSwitcher : MonoBehaviour
 {
     [SerializeField] private InputListener inputListener;
 
-    public int CurrentWeaponIndex { get; set; }
+    public int CurrentWeaponIndex;
 
     public void Initialize(List<GameObject> weaponList)
     {

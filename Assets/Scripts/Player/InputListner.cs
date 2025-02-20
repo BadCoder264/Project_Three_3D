@@ -7,8 +7,8 @@ public class InputListener : MonoBehaviour
     [SerializeField] private PlayerMovement playerMovementController;
     [SerializeField] private Interactive interactive;
     public List<GameObject> PlayerWeaponsList = new List<GameObject>();
-    [SerializeField] private PlayerAttack playerAttack;
-    public List<PlayerShoot> PlayerShootingList = new List<PlayerShoot>();
+    [SerializeField] private PlayerMelee playerMelee;
+    public List<PlayerShooting> PlayerShootingList = new List<PlayerShooting>();
     public WeaponSwitcher weaponSwitcherController;
     [SerializeField] private KeyCode sprintKey = KeyCode.LeftShift;
     public KeyCode interactiveKey = KeyCode.E;
@@ -50,9 +50,9 @@ public class InputListener : MonoBehaviour
             }
         }
 
-        if (playerAttack != null)
+        if (playerMelee != null)
         {
-            playerAttack.ExecuteAttack(Input.GetKeyDown(shootKey));
+            playerMelee.ExecuteAttack(Input.GetKeyDown(shootKey));
         }
 
         if (PlayerShootingList.Count > 0 &&

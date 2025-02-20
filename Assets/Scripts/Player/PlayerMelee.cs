@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class PlayerAttack : MonoBehaviour
+public class PlayerMelee : MonoBehaviour
 {
     [SerializeField] private int attackDamage;
     [SerializeField] private float attackRange;

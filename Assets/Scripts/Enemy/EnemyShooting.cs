@@ -1,0 +1,19 @@
+using UnityEngine;
+
+public class EnemyShooting : MonoBehaviour, IEnemyAttack
+{
+    [SerializeField] private int attackDamage;
+    [SerializeField] private LayerMask targetLayerMask;
+    [SerializeField] private Transform startShoot;
+
+    public void Attack(EnemyStatistics enemyStatistics)
+    {
+        if (enemyStatistics.playerTarget != null)
+        {
+            if (Physics.Raycast(startShoot.position, startShoot.forward, out RaycastHit hit, Mathf.Infinity, targetLayerMask))
+            {
+                hit.collider.GetComponent<PlayerStatistics>()?.Damage(attackDamage);
+            }
+        }
+    }
+}

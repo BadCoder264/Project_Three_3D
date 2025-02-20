@@ -1,12 +1,14 @@
 using TMPro;
 using UnityEngine;
 
-public class ShopManager : MonoBehaviour
+public class ShopManager : MonoBehaviour, IInteractive
 {
+    public enum TypeObject { Weapon, FirstAid }
+    [field: SerializeField] public TypeObject _TypeObject;
+
     [Header("Shop Item Settings")]
     [SerializeField] private int price;
     [SerializeField] private GameObject product;
-    [SerializeField] private PlayerStatistics playerStatistics;
 
     [Header("UI Elements")]
     [SerializeField] private TMP_Text productPriceDisplayText;
@@ -24,19 +26,31 @@ public class ShopManager : MonoBehaviour
         }
     }
 
-    public void BuyWeapon(InputListener inputListener, PlayerShoot playerShoot, Transform weaponHandler)
+    public void Interactive(PlayerStatistics playerStatistics, InputListener inputListener, PlayerShooting playerShoot, Transform weaponHandler)
     {
-        if (playerStatistics.Score < price) return;
-
-        if (playerShoot != null && inputListener != null)
+        if (playerStatistics.Score >= price)
         {
-            EquipWeapon(inputListener, playerShoot, weaponHandler);
+            if (_TypeObject == TypeObject.Weapon)
+            {
+                if (playerShoot != null && inputListener != null)
+                {
+                    EquipWeapon(inputListener, playerShoot, weaponHandler);
+                    CompletePurchase();
+                }
+            }
+            else if (_TypeObject == TypeObject.FirstAid)
+            {
+                if (playerStatistics != null)
+                {
+                    playerStatistics.Healing(8);
+                }
+            }
+
             playerStatistics.Score -= price;
-            CompletePurchase();
         }
     }
 
-    private void EquipWeapon(InputListener inputListener, PlayerShoot playerShoot, Transform weaponHandler)
+    private void EquipWeapon(InputListener inputListener, PlayerShooting playerShoot, Transform weaponHandler)
     {
         inputListener.PlayerWeaponsList.Add(gameObject);
         inputListener.PlayerShootingList.Add(playerShoot);

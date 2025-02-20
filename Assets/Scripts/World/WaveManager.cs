@@ -4,7 +4,7 @@ using UnityEngine;
 using TMPro;
 using UnityEngine.UI;
 
-public class WaveManager : MonoBehaviour
+public class WaveManager : MonoBehaviour, IInteractive
 {
     [Header("Wave Settings")]
     [SerializeField] private int currentWaveMaxEnemies;
@@ -12,7 +12,7 @@ public class WaveManager : MonoBehaviour
     [SerializeField] private float minSpawnIntervalEnemies;
     [SerializeField] private float maxSpawnIntervalEnemies;
     [SerializeField] private Camera playerCamera;
-    [SerializeField] private GameObject enemyPrefabs;
+    [SerializeField] private List<GameObject> enemyPrefabs;
     [SerializeField] private List<Transform> spawnPoints;
 
     [Header("UI Elements")]
@@ -40,7 +40,7 @@ public class WaveManager : MonoBehaviour
         UpdateUI();
     }
 
-    public void StartNewWave()
+    public void Interactive(PlayerStatistics playerStatistics, InputListener inputListener, PlayerShooting playerShoot, Transform weaponHandler)
     {
         if (!isWaveActive)
         {
@@ -62,17 +62,29 @@ public class WaveManager : MonoBehaviour
 
     private IEnumerator SpawnEnemiesCoroutine(float spawnInterval)
     {
+        int maxEnemyTypeIndex = GetMaxEnemyTypeIndex(currentWaveIndex);
+
         for (int i = 0; i < currentWaveMaxEnemies; i++)
         {
-            if (enemyPrefabs != null && spawnPoints.Count > 0)
+            if (spawnPoints.Count > 0)
             {
                 int spawnIndex = Random.Range(0, spawnPoints.Count);
-                GameObject enemy = Instantiate(enemyPrefabs, spawnPoints[spawnIndex].position, spawnPoints[spawnIndex].rotation);
+                int enemyTypeIndex = Random.Range(0, maxEnemyTypeIndex + 1);
+
+                GameObject enemy = Instantiate(enemyPrefabs[enemyTypeIndex], spawnPoints[spawnIndex].position, spawnPoints[spawnIndex].rotation);
                 activeEnemies.Add(enemy);
             }
 
             yield return new WaitForSeconds(spawnInterval);
         }
+    }
+
+    private int GetMaxEnemyTypeIndex(int waveIndex)
+    {
+        if (waveIndex < 15) return 0;
+        if (waveIndex < 30) return 1;
+        if (waveIndex < 45) return 2;
+        return 3;
     }
 
     private void UpdateUI()

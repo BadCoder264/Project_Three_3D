@@ -8,6 +8,7 @@ public class Interactive : MonoBehaviour
     [SerializeField] private LayerMask targetLayerMask;
     [SerializeField] private Camera playerCamera;
     [SerializeField] private Transform weaponHandler;
+    [SerializeField] private PlayerStatistics playerStatistics;
     [SerializeField] private InputListener inputListener;
 
     [Header("UI Elements")]
@@ -24,14 +25,10 @@ public class Interactive : MonoBehaviour
         {
             if (Physics.Raycast(playerCamera.ScreenPointToRay(Input.mousePosition), out RaycastHit hit, rayDistance, targetLayerMask))
             {
-                if (hit.collider.GetComponent<ShopManager>() != null)
+                if (hit.collider.GetComponent<IInteractive>() != null)
                 {
-                    hit.collider.GetComponent<ShopManager>().BuyWeapon(inputListener, hit.collider.GetComponent<PlayerShoot>(), weaponHandler);
-                }
-
-                if (hit.collider.GetComponent<WaveManager>() != null)
-                {
-                    hit.collider.GetComponent<WaveManager>().StartNewWave();
+                    PlayerShooting playerShoot = hit.collider.GetComponent<PlayerShooting>();
+                    hit.collider.GetComponent<IInteractive>().Interactive(playerStatistics, inputListener, playerShoot, weaponHandler);
                 }
             }
         }
@@ -45,7 +42,7 @@ public class Interactive : MonoBehaviour
             {
                 if (hit.collider.GetComponent<ShopManager>() != null)
                 {
-                    interactivePromptText.text = $"Press {inputListener.interactiveKey} to Buy Weapon";
+                    interactivePromptText.text = $"Press {inputListener.interactiveKey} to Buy Item";
                 }
 
                 if (hit.collider.GetComponent<WaveManager>() != null)

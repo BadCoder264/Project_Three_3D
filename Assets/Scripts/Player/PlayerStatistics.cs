@@ -7,7 +7,7 @@ public class PlayerStatistics : MonoBehaviour
     public int CurrentHealth
     {
         get => currentHealth;
-        private set
+        set
         {
             currentHealth = value;
 
@@ -46,6 +46,11 @@ public class PlayerStatistics : MonoBehaviour
     public void Damage(int damageAmount)
     {
         CurrentHealth -= damageAmount;
+    }
+
+    public void Healing(int healingAmount)
+    {
+        CurrentHealth += healingAmount;
     }
 
     private void Death()

@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 24531565537778500}
   - component: {fileID: 8041728073777016056}
   - component: {fileID: 4041723462641490350}
-  m_Layer: 6
+  m_Layer: 7
   m_Name: SM_Wep_HuntingRifle_01
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -97,7 +97,7 @@ GameObject:
   - component: {fileID: 8935385269484330926}
   - component: {fileID: 6940605078831053415}
   - component: {fileID: 2551685506159423966}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: FX_Gunshot_Flash_01
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4908,7 +4908,7 @@ GameObject:
   - component: {fileID: 7640918328605055458}
   - component: {fileID: 1452951765725644096}
   - component: {fileID: 7639088040135123762}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: FX_Gunshot_Light_01
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5128,7 +5128,7 @@ GameObject:
   - component: {fileID: 5433618065986061889}
   - component: {fileID: 7276593594140501999}
   - component: {fileID: 3059584216521069603}
-  m_Layer: 6
+  m_Layer: 7
   m_Name: SM_Wep_HuntingRifle_01_Scope_01
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5212,7 +5212,7 @@ GameObject:
   - component: {fileID: 9147936602082757102}
   - component: {fileID: 3915496201059722379}
   - component: {fileID: 6260699071360957225}
-  m_Layer: 6
+  m_Layer: 7
   m_Name: SniperRifle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5266,14 +5266,14 @@ MonoBehaviour:
   m_GameObject: {fileID: 5420559871361716494}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d4aca3fc8101ac64ab1fafaefdca36cd, type: 3}
+  m_Script: {fileID: 11500000, guid: de08767b1ecd9254db3c5bf2da8e4e6c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  damageAmount: 30
-  timeBetweenShots: 0.8
+  damageAmount: 20
+  timeBetweenShots: 1.25
   targetLayerMask:
     serializedVersion: 2
-    m_Bits: 256
+    m_Bits: 64
   playerCamera: {fileID: 0}
   shootEffect: {fileID: 6940605078831053415}
   recoil: {fileID: 0}
@@ -5304,7 +5304,7 @@ GameObject:
   - component: {fileID: 7750347255658709722}
   - component: {fileID: 1533903430085112519}
   - component: {fileID: 8103273562786705497}
-  m_Layer: 6
+  m_Layer: 7
   m_Name: SM_Wep_HuntingRifle_01_Trigger_01
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5521,7 +5521,7 @@ GameObject:
   - component: {fileID: 8725583256576741336}
   - component: {fileID: 5983144210722422507}
   - component: {fileID: 7647981607608365267}
-  m_Layer: 6
+  m_Layer: 7
   m_Name: SM_Wep_HuntingRifle_01_Bolt_01
   m_TagString: Untagged
   m_Icon: {fileID: 0}

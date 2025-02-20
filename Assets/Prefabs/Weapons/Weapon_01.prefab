@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 1744148654259285260}
   - component: {fileID: 5361636002446716207}
   - component: {fileID: 5145473205222789298}
-  m_Layer: 6
+  m_Layer: 7
   m_Name: Uzi
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -66,14 +66,14 @@ MonoBehaviour:
   m_GameObject: {fileID: 1399879835684133581}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d4aca3fc8101ac64ab1fafaefdca36cd, type: 3}
+  m_Script: {fileID: 11500000, guid: de08767b1ecd9254db3c5bf2da8e4e6c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  damageAmount: 8
-  timeBetweenShots: 0.12
+  damageAmount: 7
+  timeBetweenShots: 0.2
   targetLayerMask:
     serializedVersion: 2
-    m_Bits: 256
+    m_Bits: 64
   playerCamera: {fileID: 0}
   shootEffect: {fileID: 8955291233229585393}
   recoil: {fileID: 0}
@@ -104,7 +104,7 @@ GameObject:
   - component: {fileID: 6154357106345071415}
   - component: {fileID: 404184681533060306}
   - component: {fileID: 2220081010112833519}
-  m_Layer: 6
+  m_Layer: 7
   m_Name: SM_Wep_SubMGun_01_Magazine_01
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -187,7 +187,7 @@ GameObject:
   - component: {fileID: 526413679363624812}
   - component: {fileID: 7857995981927081934}
   - component: {fileID: 4260011284919941841}
-  m_Layer: 6
+  m_Layer: 7
   m_Name: SM_Wep_SubMGun_01_Trigger_01
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -270,7 +270,7 @@ GameObject:
   - component: {fileID: 7679032242160025784}
   - component: {fileID: 7682394247454865944}
   - component: {fileID: 1244369285903535189}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: FX_Gunshot_Light_01
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -388,7 +388,7 @@ GameObject:
   - component: {fileID: 8606612226832930724}
   - component: {fileID: 1899222742864127649}
   - component: {fileID: 6368853715369971242}
-  m_Layer: 6
+  m_Layer: 7
   m_Name: SM_Wep_SubMGun_01
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -474,7 +474,7 @@ GameObject:
   - component: {fileID: 5288779270345597093}
   - component: {fileID: 7521654926146075733}
   - component: {fileID: 3001061053319579577}
-  m_Layer: 6
+  m_Layer: 7
   m_Name: SM_Wep_SubMGun_01_Slide_01
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -724,7 +724,7 @@ GameObject:
   - component: {fileID: 6458042428489265871}
   - component: {fileID: 8955291233229585393}
   - component: {fileID: 6156926324435737908}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: FX_Gunshot_Flash_01
   m_TagString: Untagged
   m_Icon: {fileID: 0}

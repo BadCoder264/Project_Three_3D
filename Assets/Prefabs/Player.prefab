@@ -66,6 +66,7 @@ MonoBehaviour:
     m_Bits: 192
   playerCamera: {fileID: 5707143022120674592}
   weaponHandler: {fileID: 8218130981186929265}
+  playerStatistics: {fileID: 178026562751580564}
   inputListener: {fileID: 4721695391550661996}
   interactivePromptText: {fileID: 2154486075086025756}
 --- !u!1 &289000000006594848
@@ -1206,7 +1207,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 588335483063058435}
-  - component: {fileID: 7076543585256264474}
+  - component: {fileID: 5063710820266444475}
   m_Layer: 0
   m_Name: AttackPoint
   m_TagString: Untagged
@@ -1229,7 +1230,7 @@ Transform:
   m_Children: []
   m_Father: {fileID: 6144403706554926522}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &7076543585256264474
+--- !u!114 &5063710820266444475
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1238,15 +1239,15 @@ MonoBehaviour:
   m_GameObject: {fileID: 6724279966283915222}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 658904466de2b4e4199694b97f7f8357, type: 3}
+  m_Script: {fileID: 11500000, guid: ade0d1f31c8a61f429ef7256848e14b5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  attackDamage: 20
+  attackDamage: 15
   attackRange: 1
-  timeBetweenAttack: 1
+  timeBetweenAttack: 1.4
   targetLayerMask:
     serializedVersion: 2
-    m_Bits: 256
+    m_Bits: 64
 --- !u!1 &7058468096831287721
 GameObject:
   m_ObjectHideFlags: 0
@@ -1367,7 +1368,7 @@ MonoBehaviour:
   interactive: {fileID: 7908651688791298307}
   PlayerWeaponsList:
   - {fileID: 5153437381007245458}
-  playerAttack: {fileID: 7076543585256264474}
+  playerMelee: {fileID: 5063710820266444475}
   PlayerShootingList: []
   weaponSwitcherController: {fileID: 2132164872931194675}
   sprintKey: 304

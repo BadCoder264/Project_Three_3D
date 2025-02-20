@@ -5,7 +5,7 @@ using UnityEngine.AI;
 public class EnemyStatistics : MonoBehaviour
 {
     public enum AIState { None, Pursue, Attack }
-    [field: SerializeField] public AIState CurrentState { get; private set; }
+    [field: SerializeField] public AIState CurrentState;
     public GameObject playerTarget;
     public NavMeshAgent navMeshAgent;
 

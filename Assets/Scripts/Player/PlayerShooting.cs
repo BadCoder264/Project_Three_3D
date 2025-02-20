@@ -1,9 +1,7 @@
 using UnityEngine;
 
-public class PlayerShoot : MonoBehaviour
+public class PlayerShooting : MonoBehaviour
 {
-    public bool IsWeaponEquipped { get; set; }
-
     [Header("Weapon Settings")]
     [SerializeField] private int damageAmount;
     [SerializeField] private float timeBetweenShots;
@@ -11,6 +9,8 @@ public class PlayerShoot : MonoBehaviour
     [SerializeField] private Camera playerCamera;
     [SerializeField] private ParticleSystem shootEffect;
     [SerializeField] private Recoil recoil;
+
+    public bool IsWeaponEquipped;
 
     private float timeSinceLastShot;
     private Vector3 initialPosition;

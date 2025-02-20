@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 2151687273745914563}
   - component: {fileID: 5988029487461923536}
   - component: {fileID: 3979258883033145977}
-  m_Layer: 6
+  m_Layer: 7
   m_Name: SM_Wep_AssaultRifle_02
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -98,7 +98,7 @@ GameObject:
   - component: {fileID: 8097861700220422096}
   - component: {fileID: 1031526182540844273}
   - component: {fileID: 9031113078936351362}
-  m_Layer: 6
+  m_Layer: 7
   m_Name: SM_Wep_AssaultRifle_02_Handle_01
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -181,7 +181,7 @@ GameObject:
   - component: {fileID: 2880582083712819963}
   - component: {fileID: 1198608074837629375}
   - component: {fileID: 7285877424004718024}
-  m_Layer: 6
+  m_Layer: 7
   m_Name: SM_Wep_AssaultRifle_02_Magazine_01
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -264,7 +264,7 @@ GameObject:
   - component: {fileID: 6753155910614432103}
   - component: {fileID: 3997720103987900473}
   - component: {fileID: 7510672840340280006}
-  m_Layer: 6
+  m_Layer: 7
   m_Name: SM_Wep_AssaultRifle_02_Slide_01
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -347,7 +347,7 @@ GameObject:
   - component: {fileID: 5897234501142663272}
   - component: {fileID: 6630358854019795579}
   - component: {fileID: 5473169846438582780}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: FX_Gunshot_Flash_01
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5292,7 +5292,7 @@ GameObject:
   - component: {fileID: 97070736003744158}
   - component: {fileID: 7897600548842814360}
   - component: {fileID: 6683728783223877597}
-  m_Layer: 6
+  m_Layer: 7
   m_Name: SM_Wep_AssaultRifle_02_Trigger_01
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5376,7 +5376,7 @@ GameObject:
   - component: {fileID: 1496363535272450692}
   - component: {fileID: 7963729227303549388}
   - component: {fileID: 6167287083562417633}
-  m_Layer: 6
+  m_Layer: 7
   m_Name: AssaultRifle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5430,14 +5430,14 @@ MonoBehaviour:
   m_GameObject: {fileID: 6741610640508805914}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d4aca3fc8101ac64ab1fafaefdca36cd, type: 3}
+  m_Script: {fileID: 11500000, guid: de08767b1ecd9254db3c5bf2da8e4e6c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  damageAmount: 12
-  timeBetweenShots: 0.12
+  damageAmount: 8
+  timeBetweenShots: 0.18
   targetLayerMask:
     serializedVersion: 2
-    m_Bits: 256
+    m_Bits: 64
   playerCamera: {fileID: 0}
   shootEffect: {fileID: 6630358854019795579}
   recoil: {fileID: 0}
@@ -5603,7 +5603,7 @@ GameObject:
   - component: {fileID: 1731737423609393862}
   - component: {fileID: 6554608410207111538}
   - component: {fileID: 6236498926891654254}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: FX_Gunshot_Light_01
   m_TagString: Untagged
   m_Icon: {fileID: 0}
