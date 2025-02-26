@@ -5430,17 +5430,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 6741610640508805914}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: de08767b1ecd9254db3c5bf2da8e4e6c, type: 3}
+  m_Script: {fileID: 11500000, guid: aa7750ef1d2d0e5489b35e1e59b9e48f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  damageAmount: 8
-  timeBetweenShots: 0.18
-  targetLayerMask:
-    serializedVersion: 2
-    m_Bits: 64
-  playerCamera: {fileID: 0}
-  shootEffect: {fileID: 6630358854019795579}
-  recoil: {fileID: 0}
+  _TypeObject: 0
+  price: 0
+  product: {fileID: 7390729037104038657}
+  productPriceDisplayText: {fileID: 720999267632745820}
 --- !u!114 &6167287083562417633
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5450,13 +5446,15 @@ MonoBehaviour:
   m_GameObject: {fileID: 6741610640508805914}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2794e5ca15afdca47afc5e9d2ac3bdbd, type: 3}
+  m_Script: {fileID: 11500000, guid: 148b708ccedb52d47ae6fde24c85b3be, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  price: 1300
-  product: {fileID: 7390729037104038657}
-  playerStatistics: {fileID: 0}
-  productPriceDisplayText: {fileID: 720999267632745820}
+  weaponSettings: {fileID: 11400000, guid: 516d3b346aafbbf46a809f8d47631c14, type: 2}
+  playerCamera: {fileID: 0}
+  shootEffect: {fileID: 6630358854019795579}
+  recoil: {fileID: 0}
+  ammoText: {fileID: 0}
+  IsWeaponEquipped: 0
 --- !u!1 &7390729037104038657
 GameObject:
   m_ObjectHideFlags: 0

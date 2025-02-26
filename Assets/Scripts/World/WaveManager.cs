@@ -6,6 +6,9 @@ using UnityEngine.UI;
 
 public class WaveManager : MonoBehaviour, IInteractive
 {
+    // ==============================
+    // Serialized Fields
+    // ==============================
     [Header("Wave Settings")]
     [SerializeField] private int currentWaveMaxEnemies;
     [SerializeField] private int overallMaxEnemies;
@@ -19,10 +22,16 @@ public class WaveManager : MonoBehaviour, IInteractive
     [SerializeField] private TMP_Text waveDisplayText;
     [SerializeField] private Slider enemyCountSlider;
 
+    // ==============================
+    // Private Variables
+    // ==============================
     private int currentWaveIndex;
     private bool isWaveActive;
     private List<GameObject> activeEnemies = new List<GameObject>();
 
+    // ==============================
+    // Unity Methods
+    // ==============================
     private void Start()
     {
         UpdateUI();
@@ -30,33 +39,57 @@ public class WaveManager : MonoBehaviour, IInteractive
 
     private void Update()
     {
-        activeEnemies.RemoveAll(enemy => enemy == null);
-
-        if (activeEnemies.Count == 0 && isWaveActive)
-        {
-            isWaveActive = false;
-        }
-
+        CleanUpActiveEnemies();
+        CheckWaveStatus();
         UpdateUI();
     }
 
+    // ==============================
+    // Public Methods
+    // ==============================
     public void Interactive(PlayerStatistics playerStatistics, InputListener inputListener, PlayerShooting playerShoot, Transform weaponHandler)
     {
         if (!isWaveActive)
         {
-            currentWaveIndex++;
-            if (currentWaveMaxEnemies < overallMaxEnemies)
-            {
-                currentWaveMaxEnemies += 5;
-            }
-            else
-            {
-                currentWaveMaxEnemies = overallMaxEnemies;
-            }
-            isWaveActive = true;
+            StartNewWave();
+        }
+    }
 
-            float spawnInterval = Random.Range(minSpawnIntervalEnemies, maxSpawnIntervalEnemies);
-            StartCoroutine(SpawnEnemiesCoroutine(spawnInterval));
+    // ==============================
+    // Private Methods
+    // ==============================
+    private void CleanUpActiveEnemies()
+    {
+        activeEnemies.RemoveAll(enemy => enemy == null);
+    }
+
+    private void CheckWaveStatus()
+    {
+        if (activeEnemies.Count == 0 && isWaveActive)
+        {
+            isWaveActive = false;
+        }
+    }
+
+    private void StartNewWave()
+    {
+        currentWaveIndex++;
+        UpdateCurrentWaveMaxEnemies();
+        isWaveActive = true;
+
+        float spawnInterval = Random.Range(minSpawnIntervalEnemies, maxSpawnIntervalEnemies);
+        StartCoroutine(SpawnEnemiesCoroutine(spawnInterval));
+    }
+
+    private void UpdateCurrentWaveMaxEnemies()
+    {
+        if (currentWaveMaxEnemies < overallMaxEnemies)
+        {
+            currentWaveMaxEnemies += 5;
+        }
+        else
+        {
+            currentWaveMaxEnemies = overallMaxEnemies;
         }
     }
 
@@ -68,15 +101,20 @@ public class WaveManager : MonoBehaviour, IInteractive
         {
             if (spawnPoints.Count > 0)
             {
-                int spawnIndex = Random.Range(0, spawnPoints.Count);
-                int enemyTypeIndex = Random.Range(0, maxEnemyTypeIndex + 1);
-
-                GameObject enemy = Instantiate(enemyPrefabs[enemyTypeIndex], spawnPoints[spawnIndex].position, spawnPoints[spawnIndex].rotation);
-                activeEnemies.Add(enemy);
+                SpawnEnemy(maxEnemyTypeIndex);
             }
 
             yield return new WaitForSeconds(spawnInterval);
         }
+    }
+
+    private void SpawnEnemy(int maxEnemyTypeIndex)
+    {
+        int spawnIndex = Random.Range(0, spawnPoints.Count);
+        int enemyTypeIndex = Random.Range(0, maxEnemyTypeIndex + 1);
+
+        GameObject enemy = Instantiate(enemyPrefabs[enemyTypeIndex], spawnPoints[spawnIndex].position, spawnPoints[spawnIndex].rotation);
+        activeEnemies.Add(enemy);
     }
 
     private int GetMaxEnemyTypeIndex(int waveIndex)

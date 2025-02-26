@@ -1,38 +1,73 @@
+using TMPro;
 using UnityEngine;
 
 public class PlayerMelee : MonoBehaviour
 {
+    // ==============================
+    // Serialized Fields
+    // ==============================
+    [Header("Weapon Settings")]
     [SerializeField] private int attackDamage;
     [SerializeField] private float attackRange;
     [SerializeField] private float timeBetweenAttack;
     [SerializeField] private LayerMask targetLayerMask;
+    [SerializeField] private Transform attackPoint;
 
+    [Header("UI Elements")]
+    [SerializeField] private TMP_Text ammoText;
+
+    // ==============================
+    // Private Variables
+    // ==============================
     private float timeSinceLastAttack;
 
+    // ==============================
+    // Unity Methods
+    // ==============================
     private void Update()
     {
         timeSinceLastAttack += Time.deltaTime;
+        UpdateUi();
     }
 
+    // ==============================
+    // Public Methods
+    // ==============================
     public void ExecuteAttack(bool isKeyPressed)
     {
         if (isKeyPressed && timeSinceLastAttack >= timeBetweenAttack)
         {
-            Collider[] enemy = Physics.OverlapSphere(transform.position, attackRange, targetLayerMask);
+            PerformAttack();
+        }
+    }
 
-            if (enemy.Length > 0)
+    // ==============================
+    // Private Methods
+    // ==============================
+    private void PerformAttack()
+    {
+        Collider[] enemies = Physics.OverlapSphere(attackPoint.position, attackRange, targetLayerMask);
+
+        if (enemies.Length > 0)
+        {
+            for (int i = 0; i < enemies.Length; i++)
             {
-                for (int i = 0; i < enemy.Length; i++)
+                var enemyStatistics = enemies[i].GetComponent<EnemyStatistics>();
+                if (enemyStatistics != null)
                 {
-                    var enemyStatistics = enemy[i].GetComponent<EnemyStatistics>();
-                    if (enemyStatistics != null)
-                    {
-                        enemyStatistics.Damage(attackDamage);
-                    }
+                    enemyStatistics.Damage(attackDamage);
                 }
             }
+        }
 
-            timeSinceLastAttack = 0;
+        timeSinceLastAttack = 0;
+    }
+
+    private void UpdateUi()
+    {
+        if (gameObject.activeSelf)
+        {
+            ammoText.text = "";
         }
     }
 }

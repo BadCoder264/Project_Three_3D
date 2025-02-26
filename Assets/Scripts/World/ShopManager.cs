@@ -3,21 +3,50 @@ using UnityEngine;
 
 public class ShopManager : MonoBehaviour, IInteractive
 {
-    public enum TypeObject { Weapon, FirstAid }
+    // ==============================
+    // Serialized Fields
+    // ==============================
     [field: SerializeField] public TypeObject _TypeObject;
-
-    [Header("Shop Item Settings")]
     [SerializeField] private int price;
     [SerializeField] private GameObject product;
-
-    [Header("UI Elements")]
     [SerializeField] private TMP_Text productPriceDisplayText;
 
+    // ==============================
+    // Public Enums
+    // ==============================
+    public enum TypeObject { Weapon, FirstAid }
+
+    // ==============================
+    // Unity Methods
+    // ==============================
     private void Start()
     {
         UpdatePriceDisplay();
     }
 
+    // ==============================
+    // Public Methods
+    // ==============================
+    public void Interactive(PlayerStatistics playerStatistics, InputListener inputListener, PlayerShooting playerShoot, Transform weaponHandler)
+    {
+        if (playerStatistics.Score >= price)
+        {
+            if (_TypeObject == TypeObject.Weapon)
+            {
+                EquipWeaponIfPossible(inputListener, playerShoot, weaponHandler);
+            }
+            else if (_TypeObject == TypeObject.FirstAid)
+            {
+                HealPlayer(playerStatistics);
+            }
+
+            DeductScore(playerStatistics);
+        }
+    }
+
+    // ==============================
+    // Private Methods
+    // ==============================
     private void UpdatePriceDisplay()
     {
         if (productPriceDisplayText != null)
@@ -26,28 +55,26 @@ public class ShopManager : MonoBehaviour, IInteractive
         }
     }
 
-    public void Interactive(PlayerStatistics playerStatistics, InputListener inputListener, PlayerShooting playerShoot, Transform weaponHandler)
+    private void EquipWeaponIfPossible(InputListener inputListener, PlayerShooting playerShoot, Transform weaponHandler)
     {
-        if (playerStatistics.Score >= price)
+        if (playerShoot != null && inputListener != null)
         {
-            if (_TypeObject == TypeObject.Weapon)
-            {
-                if (playerShoot != null && inputListener != null)
-                {
-                    EquipWeapon(inputListener, playerShoot, weaponHandler);
-                    CompletePurchase();
-                }
-            }
-            else if (_TypeObject == TypeObject.FirstAid)
-            {
-                if (playerStatistics != null)
-                {
-                    playerStatistics.Healing(8);
-                }
-            }
-
-            playerStatistics.Score -= price;
+            EquipWeapon(inputListener, playerShoot, weaponHandler);
+            CompletePurchase();
         }
+    }
+
+    private void HealPlayer(PlayerStatistics playerStatistics)
+    {
+        if (playerStatistics != null)
+        {
+            playerStatistics.Healing(8);
+        }
+    }
+
+    private void DeductScore(PlayerStatistics playerStatistics)
+    {
+        playerStatistics.Score -= price;
     }
 
     private void EquipWeapon(InputListener inputListener, PlayerShooting playerShoot, Transform weaponHandler)

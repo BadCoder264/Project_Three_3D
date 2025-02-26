@@ -43,11 +43,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 251133892848214903}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3b1033ed00cabb0409b8fe9f51552020, type: 3}
+  m_Script: {fileID: 11500000, guid: e6cf135e885549c45bb1bab4122e4604, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  lookSpeed: 1
-  upDownRange: 88
+  lookSpeed: 2
+  upDownRange: 85
 --- !u!114 &7908651688791298307
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -57,13 +57,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 251133892848214903}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b7804e3e1daea7449a331957aadb8a43, type: 3}
+  m_Script: {fileID: 11500000, guid: 89ba4621093e4034f8166eaa151bdf12, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  rayDistance: 1.5
+  rayDistance: 2.5
   targetLayerMask:
     serializedVersion: 2
-    m_Bits: 192
+    m_Bits: 128
   playerCamera: {fileID: 5707143022120674592}
   weaponHandler: {fileID: 8218130981186929265}
   playerStatistics: {fileID: 178026562751580564}
@@ -731,10 +731,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 4838188078324032493}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e4d1ff83bdded9a468b00d3f50a5f6c8, type: 3}
+  m_Script: {fileID: 11500000, guid: 3806ecf82a12bcc41baa171859b58b47, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   inputListener: {fileID: 4721695391550661996}
+  CurrentWeaponIndex: 0
 --- !u!114 &3057515410162000166
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -744,7 +745,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 4838188078324032493}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e78180a5d49895444823646ec704a9e9, type: 3}
+  m_Script: {fileID: 11500000, guid: 5ae916b2adea6bf4c83adda48ff58354, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   swayAmount: 0.2
@@ -791,14 +792,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 4957410770804156243}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fb54b0d5dcce0ec4cb9afd242dfb9cf3, type: 3}
+  m_Script: {fileID: 11500000, guid: c956bc4ff339ad3459bdc55af22a1284, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  recoilX: -2
-  recoilY: 2
-  recoilZ: 0.35
-  snappiness: 6
-  returnSpeed: 2
 --- !u!1 &5153437381007245458
 GameObject:
   m_ObjectHideFlags: 0
@@ -808,6 +804,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3084765758962510451}
+  - component: {fileID: 772913236543352619}
   m_Layer: 6
   m_Name: Axe
   m_TagString: Untagged
@@ -831,6 +828,26 @@ Transform:
   - {fileID: 3456104569644894068}
   m_Father: {fileID: 8218130981186929265}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &772913236543352619
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5153437381007245458}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: eaa154950f716bf41b6c99024f5f4c57, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  attackDamage: 5
+  attackRange: 0.8
+  timeBetweenAttack: 1.2
+  targetLayerMask:
+    serializedVersion: 2
+    m_Bits: 64
+  attackPoint: {fileID: 588335483063058435}
+  ammoText: {fileID: 8519890619112387184}
 --- !u!1 &5487085385101717139
 GameObject:
   m_ObjectHideFlags: 0
@@ -1207,7 +1224,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 588335483063058435}
-  - component: {fileID: 5063710820266444475}
   m_Layer: 0
   m_Name: AttackPoint
   m_TagString: Untagged
@@ -1230,24 +1246,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 6144403706554926522}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &5063710820266444475
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6724279966283915222}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ade0d1f31c8a61f429ef7256848e14b5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  attackDamage: 15
-  attackRange: 1
-  timeBetweenAttack: 1.4
-  targetLayerMask:
-    serializedVersion: 2
-    m_Bits: 64
 --- !u!1 &7058468096831287721
 GameObject:
   m_ObjectHideFlags: 0
@@ -1344,13 +1342,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 7058468096831287721}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 94d566d15cc224743aaa9d9e4ab68b73, type: 3}
+  m_Script: {fileID: 11500000, guid: 91e76edc5fd33ce4594b0cbcf39df629, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Score: 0
   maxHealth: 20
   scoreDisplayText: {fileID: 2319520789065863218}
   healthSlider: {fileID: 1235667395238058544}
+  Score: 0
 --- !u!114 &4721695391550661996
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1360,20 +1358,21 @@ MonoBehaviour:
   m_GameObject: {fileID: 7058468096831287721}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1738ec83b56680c439b2d39d0c74b510, type: 3}
+  m_Script: {fileID: 11500000, guid: 3042abefc2d3f5243bd54e9db859d0be, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   cameraRotateController: {fileID: 5000261734501048462}
   playerMovementController: {fileID: 7462898094886770633}
   interactive: {fileID: 7908651688791298307}
+  playerMelee: {fileID: 772913236543352619}
+  sprintKey: 304
+  shootKey: 323
+  reloadKey: 114
   PlayerWeaponsList:
   - {fileID: 5153437381007245458}
-  playerMelee: {fileID: 5063710820266444475}
   PlayerShootingList: []
   weaponSwitcherController: {fileID: 2132164872931194675}
-  sprintKey: 304
   interactiveKey: 101
-  shootKey: 323
 --- !u!114 &7462898094886770633
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1383,10 +1382,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 7058468096831287721}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 405b8ffb6f048104babad92bacc19411, type: 3}
+  m_Script: {fileID: 11500000, guid: 3532e5b3e58d1f74582a02a990b987d5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxSpeed: 7
+  maxSpeed: 6
   minSpeed: 4
   playerCamera: {fileID: 5707143022120674592}
   playerRigidbody: {fileID: 1467199038038233372}

@@ -1808,6 +1808,21 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6260699071360957225, guid: 227289926ee20c944a77e198470e9cef,
         type: 3}
+      propertyPath: recoil
+      value: 
+      objectReference: {fileID: 611120422}
+    - target: {fileID: 6260699071360957225, guid: 227289926ee20c944a77e198470e9cef,
+        type: 3}
+      propertyPath: ammoText
+      value: 
+      objectReference: {fileID: 443020049}
+    - target: {fileID: 6260699071360957225, guid: 227289926ee20c944a77e198470e9cef,
+        type: 3}
+      propertyPath: playerCamera
+      value: 
+      objectReference: {fileID: 910416980}
+    - target: {fileID: 6260699071360957225, guid: 227289926ee20c944a77e198470e9cef,
+        type: 3}
       propertyPath: playerStatistics
       value: 
       objectReference: {fileID: 214956267}
@@ -3132,7 +3147,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 94d566d15cc224743aaa9d9e4ab68b73, type: 3}
+  m_Script: {fileID: 11500000, guid: 91e76edc5fd33ce4594b0cbcf39df629, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!43 &224568418
@@ -5328,6 +5343,18 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e2f36e71e2c096b49b9b9913d31ec522, type: 3}
+--- !u!114 &443020049 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8519890619112387184, guid: e2f36e71e2c096b49b9b9913d31ec522,
+    type: 3}
+  m_PrefabInstance: {fileID: 443020048}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!43 &452304053
 Mesh:
   m_ObjectHideFlags: 0
@@ -6986,7 +7013,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fb54b0d5dcce0ec4cb9afd242dfb9cf3, type: 3}
+  m_Script: {fileID: 11500000, guid: c956bc4ff339ad3459bdc55af22a1284, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!43 &618936624
@@ -8688,13 +8715,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 883087167}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 58ca39fbc0955f945b57b90a439460d7, type: 3}
+  m_Script: {fileID: 11500000, guid: a214909ccae2294449afa3da0601537f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  currentWaveMaxEnemies: 10
-  overallMaxEnemies: 60
-  minSpawnIntervalEnemies: 0.1
-  maxSpawnIntervalEnemies: 0.4
+  currentWaveMaxEnemies: 5
+  overallMaxEnemies: 5
+  minSpawnIntervalEnemies: 0.8
+  maxSpawnIntervalEnemies: 1.2
   playerCamera: {fileID: 910416980}
   enemyPrefabs:
   - {fileID: 4548251421272514453, guid: 67d8ca789edf7814fb182ce3bc0c0b95, type: 3}
@@ -9363,6 +9390,21 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5145473205222789298, guid: 8552b257a06270d4e94b947722be86ef,
+        type: 3}
+      propertyPath: recoil
+      value: 
+      objectReference: {fileID: 611120422}
+    - target: {fileID: 5145473205222789298, guid: 8552b257a06270d4e94b947722be86ef,
+        type: 3}
+      propertyPath: ammoText
+      value: 
+      objectReference: {fileID: 443020049}
+    - target: {fileID: 5145473205222789298, guid: 8552b257a06270d4e94b947722be86ef,
+        type: 3}
+      propertyPath: playerCamera
+      value: 
+      objectReference: {fileID: 910416980}
     - target: {fileID: 5145473205222789298, guid: 8552b257a06270d4e94b947722be86ef,
         type: 3}
       propertyPath: playerStatistics
@@ -12420,6 +12462,21 @@ PrefabInstance:
       objectReference: {fileID: 910416980}
     - target: {fileID: 8653590852259453891, guid: 83a9c0841987479449cbe28cf9302c55,
         type: 3}
+      propertyPath: recoil
+      value: 
+      objectReference: {fileID: 611120422}
+    - target: {fileID: 8653590852259453891, guid: 83a9c0841987479449cbe28cf9302c55,
+        type: 3}
+      propertyPath: ammoText
+      value: 
+      objectReference: {fileID: 443020049}
+    - target: {fileID: 8653590852259453891, guid: 83a9c0841987479449cbe28cf9302c55,
+        type: 3}
+      propertyPath: playerCamera
+      value: 
+      objectReference: {fileID: 910416980}
+    - target: {fileID: 8653590852259453891, guid: 83a9c0841987479449cbe28cf9302c55,
+        type: 3}
       propertyPath: playerStatistics
       value: 
       objectReference: {fileID: 214956267}
@@ -14244,6 +14301,21 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 509202741437462954, guid: 41dd9eef2dc193341b8ec4677f928da9,
         type: 3}
+      propertyPath: recoil
+      value: 
+      objectReference: {fileID: 611120422}
+    - target: {fileID: 509202741437462954, guid: 41dd9eef2dc193341b8ec4677f928da9,
+        type: 3}
+      propertyPath: ammoText
+      value: 
+      objectReference: {fileID: 443020049}
+    - target: {fileID: 509202741437462954, guid: 41dd9eef2dc193341b8ec4677f928da9,
+        type: 3}
+      propertyPath: playerCamera
+      value: 
+      objectReference: {fileID: 910416980}
+    - target: {fileID: 509202741437462954, guid: 41dd9eef2dc193341b8ec4677f928da9,
+        type: 3}
       propertyPath: playerStatistics
       value: 
       objectReference: {fileID: 214956267}
@@ -14630,6 +14702,21 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 611120422}
     - target: {fileID: 650504915427086075, guid: d5970845cc9ca254ab0c364d4b10c55e,
+        type: 3}
+      propertyPath: playerCamera
+      value: 
+      objectReference: {fileID: 910416980}
+    - target: {fileID: 2809987776720817213, guid: d5970845cc9ca254ab0c364d4b10c55e,
+        type: 3}
+      propertyPath: recoil
+      value: 
+      objectReference: {fileID: 611120422}
+    - target: {fileID: 2809987776720817213, guid: d5970845cc9ca254ab0c364d4b10c55e,
+        type: 3}
+      propertyPath: ammoText
+      value: 
+      objectReference: {fileID: 443020049}
+    - target: {fileID: 2809987776720817213, guid: d5970845cc9ca254ab0c364d4b10c55e,
         type: 3}
       propertyPath: playerCamera
       value: 
@@ -16294,6 +16381,21 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 895643369}
     m_Modifications:
+    - target: {fileID: 6167287083562417633, guid: 9124d10eaedf12445a84a97baf39ad0d,
+        type: 3}
+      propertyPath: recoil
+      value: 
+      objectReference: {fileID: 611120422}
+    - target: {fileID: 6167287083562417633, guid: 9124d10eaedf12445a84a97baf39ad0d,
+        type: 3}
+      propertyPath: ammoText
+      value: 
+      objectReference: {fileID: 443020049}
+    - target: {fileID: 6167287083562417633, guid: 9124d10eaedf12445a84a97baf39ad0d,
+        type: 3}
+      propertyPath: playerCamera
+      value: 
+      objectReference: {fileID: 910416980}
     - target: {fileID: 6167287083562417633, guid: 9124d10eaedf12445a84a97baf39ad0d,
         type: 3}
       propertyPath: playerStatistics

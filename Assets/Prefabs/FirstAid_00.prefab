@@ -351,11 +351,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 6107172246372069214}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2794e5ca15afdca47afc5e9d2ac3bdbd, type: 3}
+  m_Script: {fileID: 11500000, guid: aa7750ef1d2d0e5489b35e1e59b9e48f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   _TypeObject: 1
-  price: 270
+  price: 0
   product: {fileID: 6125335645375578607}
   productPriceDisplayText: {fileID: 706488313320928874}
 --- !u!1 &6125335645375578607

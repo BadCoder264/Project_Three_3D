@@ -2,29 +2,35 @@ using UnityEngine;
 
 public class Recoil : MonoBehaviour
 {
-    [Header("Recoil Settings")]
-    [SerializeField] private float recoilX;
-    [SerializeField] private float recoilY;
-    [SerializeField] private float recoilZ;
-    [SerializeField] private float snappiness;
-    [SerializeField] private float returnSpeed;
-
+    // ==============================
+    // Private Variables
+    // ==============================
     private Vector3 currentRotation;
     private Vector3 targetRotation;
 
+    // ==============================
+    // Unity Methods
+    // ==============================
     private void Update()
     {
-        _Recoil();
+        ApplyRecoil();
     }
 
-    private void _Recoil()
+    // ==============================
+    // Private Methods
+    // ==============================
+    private void ApplyRecoil()
     {
-        targetRotation = Vector3.Lerp(targetRotation, Vector3.zero, returnSpeed * Time.deltaTime);
-        currentRotation = Vector3.Slerp(currentRotation, targetRotation, snappiness * Time.fixedDeltaTime);
+        // Smoothly interpolate the target rotation back to zero
+        targetRotation = Vector3.Lerp(targetRotation, Vector3.zero, 6f * Time.deltaTime);
+        currentRotation = Vector3.Slerp(currentRotation, targetRotation, 2f * Time.fixedDeltaTime);
         transform.localRotation = Quaternion.Euler(currentRotation);
     }
 
-    public void RecoilFire()
+    // ==============================
+    // Public Methods
+    // ==============================
+    public void RecoilFire(float recoilX, float recoilY, float recoilZ)
     {
         targetRotation += new Vector3(recoilX, Random.Range(-recoilY, recoilY), Random.Range(-recoilZ, recoilZ));
     }

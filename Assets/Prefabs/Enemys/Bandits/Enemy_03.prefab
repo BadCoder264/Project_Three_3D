@@ -4395,10 +4395,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 3382709413529096594}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a6e4e1a418c2c4648bcf5710dfba3218, type: 3}
+  m_Script: {fileID: 11500000, guid: 6a3b00c365ff0e744833b0ca2ca6b430, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  attackDamage: 2
+  attackDamage: 8
 --- !u!1 &3416294568432277231
 GameObject:
   m_ObjectHideFlags: 0
@@ -4490,18 +4490,18 @@ MonoBehaviour:
   m_GameObject: {fileID: 3416294568432277231}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3793bddd0f565e444aa845d9330c7d8c, type: 3}
+  m_Script: {fileID: 11500000, guid: 43180ab806446bf4884fea36342ee5d5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  CurrentState: 0
+  CurrentState: 1
   playerTarget: {fileID: 0}
   navMeshAgent: {fileID: 3374389870031906133}
-  minHealth: 10
-  maxHealth: 15
-  minScoreReward: 2
-  maxScoreReward: 5
-  attackRange: 1.6
-  attackCooldown: 1.2
+  minHealth: 8
+  maxHealth: 12
+  minScoreReward: 6
+  maxScoreReward: 10
+  attackRange: 1.2
+  attackCooldown: 1.25
   enemyModels:
   - {fileID: 8633245065644052729}
   - {fileID: 6704973270045313370}
@@ -4516,7 +4516,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 3416294568432277231}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3b515b111d4acb54391c250c73170d08, type: 3}
+  m_Script: {fileID: 11500000, guid: 997760e8a79a1c9429cd02f55526e9a9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &3487295865141253133

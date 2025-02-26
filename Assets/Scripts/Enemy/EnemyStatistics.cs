@@ -1,10 +1,17 @@
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
+using System.Collections.Generic;
 
 public class EnemyStatistics : MonoBehaviour
 {
+    // ==============================
+    // Enumerations
+    // ==============================
     public enum AIState { None, Pursue, Attack }
+
+    // ==============================
+    // Serialized Fields
+    // ==============================
     [field: SerializeField] public AIState CurrentState;
     public GameObject playerTarget;
     public NavMeshAgent navMeshAgent;
@@ -19,8 +26,10 @@ public class EnemyStatistics : MonoBehaviour
     [SerializeField] private EnemyMovement enemyMovement;
     [SerializeField] private MonoBehaviour enemyAttack;
 
+    // ==============================
+    // Private Fields
+    // ==============================
     private IEnemyAttack enemyAttackInterface;
-
     private int _currentHealth;
     private int currentHealth
     {
@@ -34,24 +43,48 @@ public class EnemyStatistics : MonoBehaviour
             }
         }
     }
+
     private int currentScoreReward;
     private float timeSinceLastAttack;
 
+    // ==============================
+    // Unity Methods
+    // ==============================
     private void Start()
+    {
+        InitializeEnemy();
+    }
+
+    private void Update()
+    {
+        UpdateAIState();
+        HandleAIState();
+    }
+
+    // ==============================
+    // Public Methods
+    // ==============================
+    public void Damage(int damageAmount)
+    {
+        playerTarget.GetComponent<PlayerStatistics>().Score += currentScoreReward;
+        currentHealth -= damageAmount;
+    }
+
+    // ==============================
+    // Private Methods
+    // ==============================
+    private void InitializeEnemy()
     {
         playerTarget = GameObject.FindGameObjectWithTag("Player");
         int indexPlayerModel = Random.Range(0, enemyModels.Count);
         enemyModels[indexPlayerModel].SetActive(true);
         currentHealth = Random.Range(minHealth, maxHealth);
         currentScoreReward = Random.Range(minScoreReward, maxScoreReward);
-
         enemyAttackInterface = enemyAttack as IEnemyAttack;
     }
 
-    private void Update()
+    private void HandleAIState()
     {
-        UpdateAIState();
-
         switch (CurrentState)
         {
             case AIState.Pursue:
@@ -71,29 +104,15 @@ public class EnemyStatistics : MonoBehaviour
         }
     }
 
-    public void Damage(int damageAmount)
-    {
-        playerTarget.GetComponent<PlayerStatistics>().Score += currentScoreReward;
-        currentHealth -= damageAmount;
-    }
-
     private void Death()
     {
-        // Добавьте логику для смерти врага здесь
+        // Add logic for enemy death here
         Destroy(gameObject);
     }
 
     private void UpdateAIState()
     {
         float distanceToPlayer = Vector3.Distance(transform.position, playerTarget.transform.position);
-
-        if (distanceToPlayer < attackRange)
-        {
-            CurrentState = AIState.Attack;
-        }
-        else
-        {
-            CurrentState = AIState.Pursue;
-        }
+        CurrentState = distanceToPlayer < attackRange ? AIState.Attack : AIState.Pursue;
     }
 }

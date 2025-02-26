@@ -3,17 +3,28 @@ using UnityEngine;
 
 public class InputListener : MonoBehaviour
 {
+    // ==============================
+    // Serialized Fields
+    // ==============================
     [SerializeField] private CameraRotate cameraRotateController;
     [SerializeField] private PlayerMovement playerMovementController;
     [SerializeField] private Interactive interactive;
-    public List<GameObject> PlayerWeaponsList = new List<GameObject>();
     [SerializeField] private PlayerMelee playerMelee;
+    [SerializeField] private KeyCode sprintKey = KeyCode.LeftShift;
+    [SerializeField] private KeyCode shootKey = KeyCode.Mouse0;
+    [SerializeField] private KeyCode reloadKey = KeyCode.R;
+
+    // ==============================
+    // Public Variables
+    // ==============================
+    public List<GameObject> PlayerWeaponsList = new List<GameObject>();
     public List<PlayerShooting> PlayerShootingList = new List<PlayerShooting>();
     public WeaponSwitcher weaponSwitcherController;
-    [SerializeField] private KeyCode sprintKey = KeyCode.LeftShift;
     public KeyCode interactiveKey = KeyCode.E;
-    [SerializeField] private KeyCode shootKey = KeyCode.Mouse0;
 
+    // ==============================
+    // Unity Methods
+    // ==============================
     private void Start()
     {
         weaponSwitcherController?.Initialize(PlayerWeaponsList);
@@ -21,22 +32,44 @@ public class InputListener : MonoBehaviour
 
     private void Update()
     {
+        HandleCameraRotation();
+        HandlePlayerMovement();
+        HandleInteraction();
+        HandleWeaponSwitching();
+        HandleMeleeAttack();
+        HandleShooting();
+    }
+
+    // ==============================
+    // Private Methods
+    // ==============================
+    private void HandleCameraRotation()
+    {
         if (cameraRotateController != null)
         {
             cameraRotateController.RotateCamera();
         }
+    }
 
+    private void HandlePlayerMovement()
+    {
         if (playerMovementController != null)
         {
             playerMovementController.Move();
             playerMovementController.Sprint(Input.GetKey(sprintKey));
         }
+    }
 
+    private void HandleInteraction()
+    {
         if (interactive != null)
         {
             interactive._Interactive(Input.GetKeyDown(interactiveKey));
         }
+    }
 
+    private void HandleWeaponSwitching()
+    {
         if (weaponSwitcherController != null)
         {
             float scroll = Input.GetAxis("Mouse ScrollWheel");
@@ -49,16 +82,22 @@ public class InputListener : MonoBehaviour
                 weaponSwitcherController.SwitchWeapon(-1);
             }
         }
+    }
 
+    private void HandleMeleeAttack()
+    {
         if (playerMelee != null)
         {
             playerMelee.ExecuteAttack(Input.GetKeyDown(shootKey));
         }
+    }
 
-        if (PlayerShootingList.Count > 0 &&
-            weaponSwitcherController.CurrentWeaponIndex > 0)
+    private void HandleShooting()
+    {
+        if (PlayerShootingList.Count > 0 && weaponSwitcherController.CurrentWeaponIndex > 0)
         {
             PlayerShootingList[weaponSwitcherController.CurrentWeaponIndex - 1].Shoot(Input.GetKey(shootKey));
+            PlayerShootingList[weaponSwitcherController.CurrentWeaponIndex - 1].Reload(Input.GetKeyDown(reloadKey));
         }
     }
 }

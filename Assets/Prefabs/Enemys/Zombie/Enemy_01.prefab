@@ -317,18 +317,18 @@ MonoBehaviour:
   m_GameObject: {fileID: 1310353326811452434}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3793bddd0f565e444aa845d9330c7d8c, type: 3}
+  m_Script: {fileID: 11500000, guid: 43180ab806446bf4884fea36342ee5d5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  CurrentState: 0
+  CurrentState: 1
   playerTarget: {fileID: 0}
   navMeshAgent: {fileID: 8928818609600308585}
-  minHealth: 10
-  maxHealth: 15
-  minScoreReward: 2
-  maxScoreReward: 5
-  attackRange: 1.6
-  attackCooldown: 1.2
+  minHealth: 6
+  maxHealth: 10
+  minScoreReward: 4
+  maxScoreReward: 8
+  attackRange: 1.2
+  attackCooldown: 1.25
   enemyModels:
   - {fileID: 1525853185817897513}
   enemyMovement: {fileID: 1134099927182735763}
@@ -342,7 +342,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1310353326811452434}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3b515b111d4acb54391c250c73170d08, type: 3}
+  m_Script: {fileID: 11500000, guid: 997760e8a79a1c9429cd02f55526e9a9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &1509877374820391653
@@ -1896,10 +1896,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 2937408161406365787}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a6e4e1a418c2c4648bcf5710dfba3218, type: 3}
+  m_Script: {fileID: 11500000, guid: 6a3b00c365ff0e744833b0ca2ca6b430, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  attackDamage: 2
+  attackDamage: 4
 --- !u!1 &2965425428507039273
 GameObject:
   m_ObjectHideFlags: 0

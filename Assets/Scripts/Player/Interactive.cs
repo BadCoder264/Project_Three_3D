@@ -3,6 +3,9 @@ using UnityEngine;
 
 public class Interactive : MonoBehaviour
 {
+    // ==============================
+    // Serialized Fields
+    // ==============================
     [Header("Pick Up Settings")]
     [SerializeField] private float rayDistance;
     [SerializeField] private LayerMask targetLayerMask;
@@ -14,22 +17,37 @@ public class Interactive : MonoBehaviour
     [Header("UI Elements")]
     [SerializeField] private TMP_Text interactivePromptText;
 
+    // ==============================
+    // Unity Methods
+    // ==============================
     private void Update()
     {
         UpdateUi();
     }
 
+    // ==============================
+    // Public Methods
+    // ==============================
     public void _Interactive(bool isKeyPressed)
     {
         if (isKeyPressed && playerCamera != null)
         {
-            if (Physics.Raycast(playerCamera.ScreenPointToRay(Input.mousePosition), out RaycastHit hit, rayDistance, targetLayerMask))
+            PerformRaycast();
+        }
+    }
+
+    // ==============================
+    // Private Methods
+    // ==============================
+    private void PerformRaycast()
+    {
+        if (Physics.Raycast(playerCamera.ScreenPointToRay(Input.mousePosition), out RaycastHit hit, rayDistance, targetLayerMask))
+        {
+            IInteractive interactiveObject = hit.collider.GetComponent<IInteractive>();
+            if (interactiveObject != null)
             {
-                if (hit.collider.GetComponent<IInteractive>() != null)
-                {
-                    PlayerShooting playerShoot = hit.collider.GetComponent<PlayerShooting>();
-                    hit.collider.GetComponent<IInteractive>().Interactive(playerStatistics, inputListener, playerShoot, weaponHandler);
-                }
+                PlayerShooting playerShoot = hit.collider.GetComponent<PlayerShooting>();
+                interactiveObject.Interactive(playerStatistics, inputListener, playerShoot, weaponHandler);
             }
         }
     }

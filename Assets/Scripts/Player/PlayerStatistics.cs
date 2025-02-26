@@ -4,6 +4,16 @@ using UnityEngine.UI;
 
 public class PlayerStatistics : MonoBehaviour
 {
+    // ==============================
+    // Serialized Fields
+    // ==============================
+    [SerializeField] private int maxHealth;
+    [SerializeField] private TMP_Text scoreDisplayText;
+    [SerializeField] private Slider healthSlider;
+
+    // ==============================
+    // Public Properties
+    // ==============================
     public int CurrentHealth
     {
         get => currentHealth;
@@ -17,25 +27,20 @@ public class PlayerStatistics : MonoBehaviour
             }
         }
     }
+
     public int Score;
 
-    [SerializeField] private int maxHealth;
-    [SerializeField] private TMP_Text scoreDisplayText;
-    [SerializeField] private Slider healthSlider;
-
+    // ==============================
+    // Private Variables
+    // ==============================
     private int currentHealth;
 
-    void Start()
+    // ==============================
+    // Unity Methods
+    // ==============================
+    private void Start()
     {
-        if (scoreDisplayText != null)
-        {
-            scoreDisplayText.text = $"Score: {Score}";
-        }
-        if (healthSlider != null)
-        {
-            CurrentHealth = maxHealth;
-            healthSlider.maxValue = maxHealth;
-        }
+        InitializeUI();
     }
 
     private void Update()
@@ -43,6 +48,9 @@ public class PlayerStatistics : MonoBehaviour
         UpdateUI();
     }
 
+    // ==============================
+    // Public Methods
+    // ==============================
     public void Damage(int damageAmount)
     {
         CurrentHealth -= damageAmount;
@@ -53,10 +61,26 @@ public class PlayerStatistics : MonoBehaviour
         CurrentHealth += healingAmount;
     }
 
+    // ==============================
+    // Private Methods
+    // ==============================
     private void Death()
     {
         // Здесь можно добавить логику для смерти
         Destroy(gameObject);
+    }
+
+    private void InitializeUI()
+    {
+        if (scoreDisplayText != null)
+        {
+            scoreDisplayText.text = $"Score: {Score}";
+        }
+        if (healthSlider != null)
+        {
+            CurrentHealth = maxHealth;
+            healthSlider.maxValue = maxHealth;
+        }
     }
 
     private void UpdateUI()
