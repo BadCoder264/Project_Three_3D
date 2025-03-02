@@ -5439,6 +5439,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1141429887594750535}
   - component: {fileID: 1008836635762485533}
+  - component: {fileID: 506616745651656260}
   - component: {fileID: 650504915427086075}
   - component: {fileID: 2809987776720817213}
   m_Layer: 7
@@ -5486,6 +5487,27 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 0.04, y: 0.2068, z: 0.3815}
   m_Center: {x: 0, y: 0, z: 0.1324}
+--- !u!95 &506616745651656260
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5707601276096519961}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 7a7f00894b7af08478c389585fcc926a, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!114 &650504915427086075
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5516,6 +5538,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   weaponSettings: {fileID: 11400000, guid: de5177fd0be36dd4a87952768f03cead, type: 2}
   playerCamera: {fileID: 0}
+  animator: {fileID: 506616745651656260}
   shootEffect: {fileID: 1135145841938955609}
   recoil: {fileID: 0}
   ammoText: {fileID: 0}

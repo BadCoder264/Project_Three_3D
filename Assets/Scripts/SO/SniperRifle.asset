@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: SniperRifle
   m_EditorClassIdentifier: 
   DamageAmount: 20
-  MaxAmmo: 7
+  MaxAmmo: 1
   RecoilX: -18
   RecoilY: 6
   RecoilZ: 2

@@ -10,10 +10,11 @@ GameObject:
   m_Component:
   - component: {fileID: 4447137568023832978}
   - component: {fileID: 1744148654259285260}
+  - component: {fileID: 5443032367796551101}
   - component: {fileID: 5361636002446716207}
   - component: {fileID: 5145473205222789298}
   m_Layer: 7
-  m_Name: Uzi
+  m_Name: SubMachineGun
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 1
@@ -57,6 +58,27 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 0.0868, y: 0.214, z: 0.6356}
   m_Center: {x: 0, y: 0, z: 0.022}
+--- !u!95 &5443032367796551101
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1399879835684133581}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 0c3c3c1fa3c901d4a83af60bce6e33fd, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!114 &5361636002446716207
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -87,6 +109,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   weaponSettings: {fileID: 11400000, guid: a92c4c195b0b3ac4b8ae6fb62e6fa85e, type: 2}
   playerCamera: {fileID: 0}
+  animator: {fileID: 5443032367796551101}
   shootEffect: {fileID: 8955291233229585393}
   recoil: {fileID: 0}
   ammoText: {fileID: 0}

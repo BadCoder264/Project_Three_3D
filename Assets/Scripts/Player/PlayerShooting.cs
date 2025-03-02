@@ -1,3 +1,4 @@
+using System.Collections;
 using TMPro;
 using UnityEngine;
 
@@ -9,6 +10,7 @@ public class PlayerShooting : MonoBehaviour
     [Header("Weapon Settings")]
     [SerializeField] private WeaponSettings weaponSettings;
     [SerializeField] private Camera playerCamera;
+    [SerializeField] private Animator animator;
     [SerializeField] private ParticleSystem shootEffect;
     [SerializeField] private Recoil recoil;
 
@@ -57,7 +59,7 @@ public class PlayerShooting : MonoBehaviour
     {
         if (isKeyPressed)
         {
-            ammo = weaponSettings.MaxAmmo;
+            StartCoroutine(PerformReload());
         }
     }
 
@@ -72,9 +74,19 @@ public class PlayerShooting : MonoBehaviour
         }
 
         recoil.RecoilFire(weaponSettings.RecoilX, weaponSettings.RecoilY, weaponSettings.RecoilZ);
+        animator.SetTrigger("Shoot");
         shootEffect?.Play();
         ammo--;
         timeSinceLastShot = 0;
+    }
+
+    private IEnumerator PerformReload()
+    {
+        animator.SetTrigger("Reload");
+
+        yield return new WaitForSeconds(animator.GetCurrentAnimatorStateInfo(0).length);
+
+        ammo = weaponSettings.MaxAmmo;
     }
 
     private void UpdateUi()

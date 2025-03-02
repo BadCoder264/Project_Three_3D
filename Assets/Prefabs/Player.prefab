@@ -804,6 +804,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3084765758962510451}
+  - component: {fileID: 8414346754143804425}
   - component: {fileID: 772913236543352619}
   m_Layer: 6
   m_Name: Axe
@@ -828,6 +829,27 @@ Transform:
   - {fileID: 3456104569644894068}
   m_Father: {fileID: 8218130981186929265}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!95 &8414346754143804425
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5153437381007245458}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 5e404b013bf42d34bb24d5cf54472b80, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!114 &772913236543352619
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -847,6 +869,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 64
   attackPoint: {fileID: 588335483063058435}
+  animator: {fileID: 8414346754143804425}
   ammoText: {fileID: 8519890619112387184}
 --- !u!1 &5487085385101717139
 GameObject:

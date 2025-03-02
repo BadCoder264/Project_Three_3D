@@ -12,6 +12,7 @@ public class PlayerMelee : MonoBehaviour
     [SerializeField] private float timeBetweenAttack;
     [SerializeField] private LayerMask targetLayerMask;
     [SerializeField] private Transform attackPoint;
+    [SerializeField] private Animator animator;
 
     [Header("UI Elements")]
     [SerializeField] private TMP_Text ammoText;
@@ -46,6 +47,14 @@ public class PlayerMelee : MonoBehaviour
     // ==============================
     private void PerformAttack()
     {
+        animator.SetTrigger("Attack");
+        Invoke("AttackLogic", 0.3f);
+
+        timeSinceLastAttack = 0;
+    }
+
+    private void AttackLogic()
+    {
         Collider[] enemies = Physics.OverlapSphere(attackPoint.position, attackRange, targetLayerMask);
 
         if (enemies.Length > 0)
@@ -59,8 +68,6 @@ public class PlayerMelee : MonoBehaviour
                 }
             }
         }
-
-        timeSinceLastAttack = 0;
     }
 
     private void UpdateUi()
