@@ -4,14 +4,7 @@ using System.Collections.Generic;
 
 public class EnemyStatistics : MonoBehaviour
 {
-    // ==============================
-    // Enumerations
-    // ==============================
     public enum AIState { None, Pursue, Attack }
-
-    // ==============================
-    // Serialized Fields
-    // ==============================
     [field: SerializeField] public AIState CurrentState;
     public GameObject playerTarget;
     public NavMeshAgent navMeshAgent;
@@ -23,12 +16,10 @@ public class EnemyStatistics : MonoBehaviour
     [SerializeField] private float attackRange;
     [SerializeField] private float attackCooldown;
     [SerializeField] private List<GameObject> enemyModels;
+    [SerializeField] private Animator animator;
     [SerializeField] private EnemyMovement enemyMovement;
     [SerializeField] private MonoBehaviour enemyAttack;
 
-    // ==============================
-    // Private Fields
-    // ==============================
     private IEnemyAttack enemyAttackInterface;
     private int _currentHealth;
     private int currentHealth
@@ -43,13 +34,9 @@ public class EnemyStatistics : MonoBehaviour
             }
         }
     }
-
     private int currentScoreReward;
     private float timeSinceLastAttack;
 
-    // ==============================
-    // Unity Methods
-    // ==============================
     private void Start()
     {
         InitializeEnemy();
@@ -61,18 +48,12 @@ public class EnemyStatistics : MonoBehaviour
         HandleAIState();
     }
 
-    // ==============================
-    // Public Methods
-    // ==============================
     public void Damage(int damageAmount)
     {
         playerTarget.GetComponent<PlayerStatistics>().Score += currentScoreReward;
         currentHealth -= damageAmount;
     }
 
-    // ==============================
-    // Private Methods
-    // ==============================
     private void InitializeEnemy()
     {
         playerTarget = GameObject.FindGameObjectWithTag("Player");
@@ -81,6 +62,10 @@ public class EnemyStatistics : MonoBehaviour
         currentHealth = Random.Range(minHealth, maxHealth);
         currentScoreReward = Random.Range(minScoreReward, maxScoreReward);
         enemyAttackInterface = enemyAttack as IEnemyAttack;
+        int indexWalk = Random.Range(0, 2);
+        animator = enemyModels[indexPlayerModel].GetComponent<Animator>();
+        animator.SetInteger("IndexWalk", indexWalk);
+        timeSinceLastAttack = attackCooldown;
     }
 
     private void HandleAIState()
@@ -88,19 +73,41 @@ public class EnemyStatistics : MonoBehaviour
         switch (CurrentState)
         {
             case AIState.Pursue:
+                animator.SetBool("Walk", true);
                 enemyMovement?.MoveTowardsPlayer(playerTarget.transform.position, this);
-                timeSinceLastAttack = 0;
+                timeSinceLastAttack = attackCooldown;
                 break;
 
             case AIState.Attack:
+                animator.SetBool("Walk", false);
+                LookAtPlayer();
                 timeSinceLastAttack += Time.deltaTime;
 
                 if (enemyAttackInterface != null && timeSinceLastAttack >= attackCooldown)
                 {
-                    enemyAttackInterface.Attack(this);
+                    animator.SetTrigger("Attack");
+                    Invoke("PerformAttackAfterDelay", 1f);
                     timeSinceLastAttack = 0;
                 }
+
                 break;
+        }
+    }
+
+    private void PerformAttackAfterDelay()
+    {
+        enemyAttackInterface.Attack(this);
+    }
+
+    private void LookAtPlayer()
+    {
+        Vector3 directionToPlayer = playerTarget.transform.position - transform.position;
+        directionToPlayer.y = 0;
+
+        if (directionToPlayer != Vector3.zero)
+        {
+            Quaternion rotation = Quaternion.LookRotation(directionToPlayer);
+            transform.rotation = Quaternion.Slerp(transform.rotation, rotation, Time.deltaTime * 5f);
         }
     }
 

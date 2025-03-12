@@ -2,24 +2,15 @@ using UnityEngine;
 
 public class SwingingWeapon : MonoBehaviour
 {
-    // ==============================
-    // Serialized Fields
-    // ==============================
     [Header("Weapon Sway Settings")]
     [SerializeField] private float swayAmount;
     [SerializeField] private float smoothFactor;
 
-    // ==============================
-    // Unity Methods
-    // ==============================
     private void Update()
     {
         ApplySwing();
     }
 
-    // ==============================
-    // Private Methods
-    // ==============================
     private void ApplySwing()
     {
         float mouseX = Input.GetAxis("Mouse X") * swayAmount;

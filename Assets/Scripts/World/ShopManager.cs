@@ -3,30 +3,18 @@ using UnityEngine;
 
 public class ShopManager : MonoBehaviour, IInteractive
 {
-    // ==============================
-    // Serialized Fields
-    // ==============================
+    public enum TypeObject { Weapon, FirstAid }
+
     [field: SerializeField] public TypeObject _TypeObject;
     [SerializeField] private int price;
     [SerializeField] private GameObject product;
     [SerializeField] private TMP_Text productPriceDisplayText;
 
-    // ==============================
-    // Public Enums
-    // ==============================
-    public enum TypeObject { Weapon, FirstAid }
-
-    // ==============================
-    // Unity Methods
-    // ==============================
     private void Start()
     {
         UpdatePriceDisplay();
     }
 
-    // ==============================
-    // Public Methods
-    // ==============================
     public void Interactive(PlayerStatistics playerStatistics, InputListener inputListener, PlayerShooting playerShoot, Transform weaponHandler)
     {
         if (playerStatistics.Score >= price)
@@ -44,9 +32,6 @@ public class ShopManager : MonoBehaviour, IInteractive
         }
     }
 
-    // ==============================
-    // Private Methods
-    // ==============================
     private void UpdatePriceDisplay()
     {
         if (productPriceDisplayText != null)

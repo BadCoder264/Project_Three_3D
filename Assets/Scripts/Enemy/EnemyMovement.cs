@@ -2,9 +2,6 @@ using UnityEngine;
 
 public class EnemyMovement : MonoBehaviour
 {
-    // ==============================
-    // Public Methods
-    // ==============================
     public void MoveTowardsPlayer(Vector3 playerPosition, EnemyStatistics enemyStatistics)
     {
         if (enemyStatistics.navMeshAgent != null)
@@ -13,9 +10,6 @@ public class EnemyMovement : MonoBehaviour
         }
     }
 
-    // ==============================
-    // Private Methods
-    // ==============================
     private void SetDestinationToPlayer(Vector3 playerPosition, EnemyStatistics enemyStatistics)
     {
         enemyStatistics.navMeshAgent.SetDestination(playerPosition);

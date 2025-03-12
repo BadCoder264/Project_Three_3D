@@ -734,8 +734,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3806ecf82a12bcc41baa171859b58b47, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  inputListener: {fileID: 4721695391550661996}
   CurrentWeaponIndex: 0
+  inputListener: {fileID: 4721695391550661996}
 --- !u!114 &3057515410162000166
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1313,7 +1313,7 @@ CapsuleCollider:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7058468096831287721}
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 13400000, guid: dcf768b3b3835654eb68e445aebab642, type: 2}
   m_IncludeLayers:
     serializedVersion: 2
     m_Bits: 0
@@ -1368,10 +1368,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 91e76edc5fd33ce4594b0cbcf39df629, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Score: 0
   maxHealth: 20
   scoreDisplayText: {fileID: 2319520789065863218}
   healthSlider: {fileID: 1235667395238058544}
-  Score: 0
 --- !u!114 &4721695391550661996
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1384,6 +1384,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3042abefc2d3f5243bd54e9db859d0be, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  PlayerWeaponsList:
+  - {fileID: 5153437381007245458}
+  PlayerShootingList: []
+  weaponSwitcherController: {fileID: 2132164872931194675}
+  interactiveKey: 101
   cameraRotateController: {fileID: 5000261734501048462}
   playerMovementController: {fileID: 7462898094886770633}
   interactive: {fileID: 7908651688791298307}
@@ -1391,11 +1396,6 @@ MonoBehaviour:
   sprintKey: 304
   shootKey: 323
   reloadKey: 114
-  PlayerWeaponsList:
-  - {fileID: 5153437381007245458}
-  PlayerShootingList: []
-  weaponSwitcherController: {fileID: 2132164872931194675}
-  interactiveKey: 101
 --- !u!114 &7462898094886770633
 MonoBehaviour:
   m_ObjectHideFlags: 0

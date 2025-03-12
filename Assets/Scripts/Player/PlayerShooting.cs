@@ -4,9 +4,8 @@ using UnityEngine;
 
 public class PlayerShooting : MonoBehaviour
 {
-    // ==============================
-    // Serialized Fields
-    // ==============================
+    public bool IsWeaponEquipped;
+
     [Header("Weapon Settings")]
     [SerializeField] private WeaponSettings weaponSettings;
     [SerializeField] private Camera playerCamera;
@@ -17,21 +16,10 @@ public class PlayerShooting : MonoBehaviour
     [Header("UI Elements")]
     [SerializeField] private TMP_Text ammoText;
 
-    // ==============================
-    // Public Variables
-    // ==============================
-    public bool IsWeaponEquipped;
-
-    // ==============================
-    // Private Variables
-    // ==============================
     private int ammo;
     private float timeSinceLastShot;
     private Vector3 initialPosition;
 
-    // ==============================
-    // Unity Methods
-    // ==============================
     private void Start()
     {
         ammo = weaponSettings.MaxAmmo;
@@ -44,14 +32,20 @@ public class PlayerShooting : MonoBehaviour
         UpdateUi();
     }
 
-    // ==============================
-    // Public Methods
-    // ==============================
     public void Shoot(bool isKeyPressed)
     {
         if (isKeyPressed && weaponSettings != null && ammo > 0 && IsWeaponEquipped && timeSinceLastShot >= weaponSettings.TimeBetweenShots)
         {
-            PerformShooting();
+            if (Physics.Raycast(playerCamera.ScreenPointToRay(Input.mousePosition), out RaycastHit hit, Mathf.Infinity, weaponSettings.TargetLayerMask))
+            {
+                hit.collider.GetComponent<EnemyStatistics>()?.Damage(weaponSettings.DamageAmount);
+            }
+
+            recoil.RecoilFire(weaponSettings.RecoilX, weaponSettings.RecoilY, weaponSettings.RecoilZ);
+            animator.SetTrigger("Shoot");
+            shootEffect?.Play();
+            ammo--;
+            timeSinceLastShot = 0;
         }
     }
 
@@ -61,23 +55,6 @@ public class PlayerShooting : MonoBehaviour
         {
             StartCoroutine(PerformReload());
         }
-    }
-
-    // ==============================
-    // Private Methods
-    // ==============================
-    private void PerformShooting()
-    {
-        if (Physics.Raycast(playerCamera.ScreenPointToRay(Input.mousePosition), out RaycastHit hit, Mathf.Infinity, weaponSettings.TargetLayerMask))
-        {
-            hit.collider.GetComponent<EnemyStatistics>()?.Damage(weaponSettings.DamageAmount);
-        }
-
-        recoil.RecoilFire(weaponSettings.RecoilX, weaponSettings.RecoilY, weaponSettings.RecoilZ);
-        animator.SetTrigger("Shoot");
-        shootEffect?.Play();
-        ammo--;
-        timeSinceLastShot = 0;
     }
 
     private IEnumerator PerformReload()

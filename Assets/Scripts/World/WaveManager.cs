@@ -6,9 +6,6 @@ using UnityEngine.UI;
 
 public class WaveManager : MonoBehaviour, IInteractive
 {
-    // ==============================
-    // Serialized Fields
-    // ==============================
     [Header("Wave Settings")]
     [SerializeField] private int currentWaveMaxEnemies;
     [SerializeField] private int overallMaxEnemies;
@@ -22,16 +19,10 @@ public class WaveManager : MonoBehaviour, IInteractive
     [SerializeField] private TMP_Text waveDisplayText;
     [SerializeField] private Slider enemyCountSlider;
 
-    // ==============================
-    // Private Variables
-    // ==============================
     private int currentWaveIndex;
     private bool isWaveActive;
     private List<GameObject> activeEnemies = new List<GameObject>();
 
-    // ==============================
-    // Unity Methods
-    // ==============================
     private void Start()
     {
         UpdateUI();
@@ -44,9 +35,6 @@ public class WaveManager : MonoBehaviour, IInteractive
         UpdateUI();
     }
 
-    // ==============================
-    // Public Methods
-    // ==============================
     public void Interactive(PlayerStatistics playerStatistics, InputListener inputListener, PlayerShooting playerShoot, Transform weaponHandler)
     {
         if (!isWaveActive)
@@ -55,9 +43,6 @@ public class WaveManager : MonoBehaviour, IInteractive
         }
     }
 
-    // ==============================
-    // Private Methods
-    // ==============================
     private void CleanUpActiveEnemies()
     {
         activeEnemies.RemoveAll(enemy => enemy == null);

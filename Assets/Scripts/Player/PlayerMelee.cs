@@ -3,9 +3,6 @@ using UnityEngine;
 
 public class PlayerMelee : MonoBehaviour
 {
-    // ==============================
-    // Serialized Fields
-    // ==============================
     [Header("Weapon Settings")]
     [SerializeField] private int attackDamage;
     [SerializeField] private float attackRange;
@@ -16,41 +13,24 @@ public class PlayerMelee : MonoBehaviour
 
     [Header("UI Elements")]
     [SerializeField] private TMP_Text ammoText;
-
-    // ==============================
-    // Private Variables
-    // ==============================
+    
     private float timeSinceLastAttack;
 
-    // ==============================
-    // Unity Methods
-    // ==============================
     private void Update()
     {
         timeSinceLastAttack += Time.deltaTime;
         UpdateUi();
     }
 
-    // ==============================
-    // Public Methods
-    // ==============================
     public void ExecuteAttack(bool isKeyPressed)
     {
         if (isKeyPressed && timeSinceLastAttack >= timeBetweenAttack)
         {
-            PerformAttack();
+            animator.SetTrigger("Attack");
+            Invoke("AttackLogic", 0.3f);
+
+            timeSinceLastAttack = 0;
         }
-    }
-
-    // ==============================
-    // Private Methods
-    // ==============================
-    private void PerformAttack()
-    {
-        animator.SetTrigger("Attack");
-        Invoke("AttackLogic", 0.3f);
-
-        timeSinceLastAttack = 0;
     }
 
     private void AttackLogic()

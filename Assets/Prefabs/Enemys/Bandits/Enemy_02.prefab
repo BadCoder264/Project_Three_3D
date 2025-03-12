@@ -13024,8 +13024,8 @@ MonoBehaviour:
   maxHealth: 10
   minScoreReward: 2
   maxScoreReward: 8
-  attackRange: 1.2
-  attackCooldown: 1.25
+  attackRange: 1.4
+  attackCooldown: 2.6
   enemyModels:
   - {fileID: 9192512211326810756}
   - {fileID: 3678452729590921536}
@@ -13037,6 +13037,7 @@ MonoBehaviour:
   - {fileID: 1588135605180377801}
   - {fileID: 9221401109760090780}
   - {fileID: 557325800769093500}
+  animator: {fileID: 0}
   enemyMovement: {fileID: 1449760051926019146}
   enemyAttack: {fileID: 1206357370605320837}
 --- !u!114 &1449760051926019146

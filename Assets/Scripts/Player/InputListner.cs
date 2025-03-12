@@ -3,9 +3,11 @@ using UnityEngine;
 
 public class InputListener : MonoBehaviour
 {
-    // ==============================
-    // Serialized Fields
-    // ==============================
+    public List<GameObject> PlayerWeaponsList = new List<GameObject>();
+    public List<PlayerShooting> PlayerShootingList = new List<PlayerShooting>();
+    public WeaponSwitcher weaponSwitcherController;
+    public KeyCode interactiveKey = KeyCode.E;
+
     [SerializeField] private CameraRotate cameraRotateController;
     [SerializeField] private PlayerMovement playerMovementController;
     [SerializeField] private Interactive interactive;
@@ -14,17 +16,6 @@ public class InputListener : MonoBehaviour
     [SerializeField] private KeyCode shootKey = KeyCode.Mouse0;
     [SerializeField] private KeyCode reloadKey = KeyCode.R;
 
-    // ==============================
-    // Public Variables
-    // ==============================
-    public List<GameObject> PlayerWeaponsList = new List<GameObject>();
-    public List<PlayerShooting> PlayerShootingList = new List<PlayerShooting>();
-    public WeaponSwitcher weaponSwitcherController;
-    public KeyCode interactiveKey = KeyCode.E;
-
-    // ==============================
-    // Unity Methods
-    // ==============================
     private void Start()
     {
         weaponSwitcherController?.Initialize(PlayerWeaponsList);
@@ -40,9 +31,6 @@ public class InputListener : MonoBehaviour
         HandleShooting();
     }
 
-    // ==============================
-    // Private Methods
-    // ==============================
     private void HandleCameraRotation()
     {
         if (cameraRotateController != null)

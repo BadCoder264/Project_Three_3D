@@ -8720,8 +8720,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   currentWaveMaxEnemies: 5
   overallMaxEnemies: 5
-  minSpawnIntervalEnemies: 0.8
-  maxSpawnIntervalEnemies: 1.2
+  minSpawnIntervalEnemies: 4
+  maxSpawnIntervalEnemies: 6
   playerCamera: {fileID: 910416980}
   enemyPrefabs:
   - {fileID: 4548251421272514453, guid: 67d8ca789edf7814fb182ce3bc0c0b95, type: 3}

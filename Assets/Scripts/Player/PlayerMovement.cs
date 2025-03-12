@@ -2,31 +2,19 @@ using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
 {
-    // ==============================
-    // Serialized Fields
-    // ==============================
     [Header("Movement Settings")]
     [SerializeField] private float maxSpeed;
     [SerializeField] private float minSpeed;
     [SerializeField] private Camera playerCamera;
     [SerializeField] private Rigidbody playerRigidbody;
 
-    // ==============================
-    // Private Variables
-    // ==============================
     private float currentSpeed;
 
-    // ==============================
-    // Unity Methods
-    // ==============================
     private void Start()
     {
         currentSpeed = minSpeed;
     }
 
-    // ==============================
-    // Public Methods
-    // ==============================
     public void Move()
     {
         if (playerCamera != null && playerRigidbody != null)

@@ -3,9 +3,6 @@ using UnityEngine;
 
 public class Interactive : MonoBehaviour
 {
-    // ==============================
-    // Serialized Fields
-    // ==============================
     [Header("Pick Up Settings")]
     [SerializeField] private float rayDistance;
     [SerializeField] private LayerMask targetLayerMask;
@@ -17,37 +14,23 @@ public class Interactive : MonoBehaviour
     [Header("UI Elements")]
     [SerializeField] private TMP_Text interactivePromptText;
 
-    // ==============================
-    // Unity Methods
-    // ==============================
     private void Update()
     {
         UpdateUi();
     }
 
-    // ==============================
-    // Public Methods
-    // ==============================
     public void _Interactive(bool isKeyPressed)
     {
         if (isKeyPressed && playerCamera != null)
         {
-            PerformRaycast();
-        }
-    }
-
-    // ==============================
-    // Private Methods
-    // ==============================
-    private void PerformRaycast()
-    {
-        if (Physics.Raycast(playerCamera.ScreenPointToRay(Input.mousePosition), out RaycastHit hit, rayDistance, targetLayerMask))
-        {
-            IInteractive interactiveObject = hit.collider.GetComponent<IInteractive>();
-            if (interactiveObject != null)
+            if (Physics.Raycast(playerCamera.ScreenPointToRay(Input.mousePosition), out RaycastHit hit, rayDistance, targetLayerMask))
             {
-                PlayerShooting playerShoot = hit.collider.GetComponent<PlayerShooting>();
-                interactiveObject.Interactive(playerStatistics, inputListener, playerShoot, weaponHandler);
+                IInteractive interactiveObject = hit.collider.GetComponent<IInteractive>();
+                if (interactiveObject != null)
+                {
+                    PlayerShooting playerShoot = hit.collider.GetComponent<PlayerShooting>();
+                    interactiveObject.Interactive(playerStatistics, inputListener, playerShoot, weaponHandler);
+                }
             }
         }
     }
@@ -66,6 +49,11 @@ public class Interactive : MonoBehaviour
                 if (hit.collider.GetComponent<WaveManager>() != null)
                 {
                     interactivePromptText.text = $"Press {inputListener.interactiveKey} to Start Wave";
+                }
+
+                if (hit.collider.GetComponent<DoorManager>() != null)
+                {
+                    interactivePromptText.text = $"Press {inputListener.interactiveKey} to Move To The Location";
                 }
             }
             else

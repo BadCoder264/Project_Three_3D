@@ -4,16 +4,6 @@ using UnityEngine.UI;
 
 public class PlayerStatistics : MonoBehaviour
 {
-    // ==============================
-    // Serialized Fields
-    // ==============================
-    [SerializeField] private int maxHealth;
-    [SerializeField] private TMP_Text scoreDisplayText;
-    [SerializeField] private Slider healthSlider;
-
-    // ==============================
-    // Public Properties
-    // ==============================
     public int CurrentHealth
     {
         get => currentHealth;
@@ -27,17 +17,13 @@ public class PlayerStatistics : MonoBehaviour
             }
         }
     }
-
     public int Score;
-
-    // ==============================
-    // Private Variables
-    // ==============================
     private int currentHealth;
 
-    // ==============================
-    // Unity Methods
-    // ==============================
+    [SerializeField] private int maxHealth;
+    [SerializeField] private TMP_Text scoreDisplayText;
+    [SerializeField] private Slider healthSlider;
+
     private void Start()
     {
         InitializeUI();
@@ -48,9 +34,6 @@ public class PlayerStatistics : MonoBehaviour
         UpdateUI();
     }
 
-    // ==============================
-    // Public Methods
-    // ==============================
     public void Damage(int damageAmount)
     {
         CurrentHealth -= damageAmount;
@@ -61,12 +44,9 @@ public class PlayerStatistics : MonoBehaviour
         CurrentHealth += healingAmount;
     }
 
-    // ==============================
-    // Private Methods
-    // ==============================
     private void Death()
     {
-        // Здесь можно добавить логику для смерти
+        // Add logic for enemy death here
         Destroy(gameObject);
     }
 

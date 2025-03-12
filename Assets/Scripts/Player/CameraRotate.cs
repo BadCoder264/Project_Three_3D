@@ -2,21 +2,12 @@ using UnityEngine;
 
 public class CameraRotate : MonoBehaviour
 {
-    // ==============================
-    // Serialized Fields
-    // ==============================
     [Header("Camera Rotation Settings")]
     [SerializeField] private float lookSpeed;
     [SerializeField] private float upDownRange;
 
-    // ==============================
-    // Private Variables
-    // ==============================
     private float rotationX;
 
-    // ==============================
-    // Unity Methods
-    // ==============================
     private void Start()
     {
         LockCursor();
@@ -27,9 +18,6 @@ public class CameraRotate : MonoBehaviour
         RotateCamera();
     }
 
-    // ==============================
-    // Public Methods
-    // ==============================
     public void RotateCamera()
     {
         float mouseX = Input.GetAxis("Mouse X") * lookSpeed;
@@ -41,9 +29,6 @@ public class CameraRotate : MonoBehaviour
         transform.parent.Rotate(Vector3.up * mouseX);
     }
 
-    // ==============================
-    // Private Methods
-    // ==============================
     private void LockCursor()
     {
         Cursor.lockState = CursorLockMode.Locked;
