@@ -3,27 +3,25 @@ using UnityEngine;
 
 public class Interactive : MonoBehaviour
 {
-    [Header("Pick Up Settings")]
     [SerializeField] private float rayDistance;
     [SerializeField] private LayerMask targetLayerMask;
     [SerializeField] private Camera playerCamera;
     [SerializeField] private Transform weaponHandler;
+    [SerializeField] private TMP_Text interactivePromptText;
     [SerializeField] private PlayerStatistics playerStatistics;
     [SerializeField] private InputListener inputListener;
 
-    [Header("UI Elements")]
-    [SerializeField] private TMP_Text interactivePromptText;
-
     private void Update()
     {
-        UpdateUi();
+        UpdateUI();
     }
 
-    public void _Interactive(bool isKeyPressed)
+    public void PerformInteraction(bool isKeyPressed)
     {
-        if (isKeyPressed && playerCamera != null)
+        if (isKeyPressed)
         {
-            if (Physics.Raycast(playerCamera.ScreenPointToRay(Input.mousePosition), out RaycastHit hit, rayDistance, targetLayerMask))
+            RaycastHit hit;
+            if (TryGetInteractiveObject(out hit))
             {
                 IInteractive interactiveObject = hit.collider.GetComponent<IInteractive>();
                 if (interactiveObject != null)
@@ -35,31 +33,65 @@ public class Interactive : MonoBehaviour
         }
     }
 
-    private void UpdateUi()
+    private bool TryGetInteractiveObject(out RaycastHit hit)
     {
-        if (playerCamera != null && interactivePromptText != null)
+        if (playerCamera == null)
         {
-            if (Physics.Raycast(playerCamera.ScreenPointToRay(Input.mousePosition), out RaycastHit hit, rayDistance, targetLayerMask))
+            Debug.LogError("Player Camera is not assigned!", this);
+            hit = default;
+            return false;
+        }
+
+        return Physics.Raycast(playerCamera.ScreenPointToRay(Input.mousePosition), out hit, rayDistance, targetLayerMask);
+    }
+
+    private void UpdateUI()
+    {
+        if (playerCamera == null || interactivePromptText == null || inputListener == null)
+        {
+            Debug.LogError("Player Camera, Interactive Prompt Text, or Input Listener is not assigned!", this);
+            return;
+        }
+
+        if (inputListener.enabled)
+        {
+            RaycastHit hit;
+            if (TryGetInteractiveObject(out hit))
             {
-                if (hit.collider.GetComponent<ShopManager>() != null)
-                {
-                    interactivePromptText.text = $"Press {inputListener.interactiveKey} to Buy Item";
-                }
-
-                if (hit.collider.GetComponent<WaveManager>() != null)
-                {
-                    interactivePromptText.text = $"Press {inputListener.interactiveKey} to Start Wave";
-                }
-
-                if (hit.collider.GetComponent<DoorManager>() != null)
-                {
-                    interactivePromptText.text = $"Press {inputListener.interactiveKey} to Move To The Location";
-                }
+                UpdatePromptText(hit);
             }
             else
             {
                 interactivePromptText.text = "";
             }
+        }
+        else
+        {
+            interactivePromptText.text = "";
+        }
+    }
+
+    private void UpdatePromptText(RaycastHit hit)
+    {
+        if (hit.collider.TryGetComponent<ShopManager>(out _))
+        {
+            interactivePromptText.text = $"Press {inputListener.interactiveKey} to Buy Item";
+        }
+        else if (hit.collider.TryGetComponent<WaveManager>(out _))
+        {
+            interactivePromptText.text = $"Press {inputListener.interactiveKey} to Start Wave";
+        }
+        else if (hit.collider.TryGetComponent<DoorManager>(out _))
+        {
+            interactivePromptText.text = $"Press {inputListener.interactiveKey} to Select a Location";
+        }
+        else if (hit.collider.TryGetComponent<UpgradeManager>(out _))
+        {
+            interactivePromptText.text = $"Press {inputListener.interactiveKey} to Upgrade the Room";
+        }
+        else
+        {
+            interactivePromptText.text = "";
         }
     }
 }

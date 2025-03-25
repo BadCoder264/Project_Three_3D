@@ -5,6 +5,7 @@ using System.Collections.Generic;
 public class EnemyStatistics : MonoBehaviour
 {
     public enum AIState { None, Pursue, Attack }
+
     [field: SerializeField] public AIState CurrentState;
     public GameObject playerTarget;
     public NavMeshAgent navMeshAgent;
@@ -20,7 +21,6 @@ public class EnemyStatistics : MonoBehaviour
     [SerializeField] private EnemyMovement enemyMovement;
     [SerializeField] private MonoBehaviour enemyAttack;
 
-    private IEnemyAttack enemyAttackInterface;
     private int _currentHealth;
     private int currentHealth
     {
@@ -34,8 +34,10 @@ public class EnemyStatistics : MonoBehaviour
             }
         }
     }
+
     private int currentScoreReward;
     private float timeSinceLastAttack;
+    private IEnemyAttack enemyAttackInterface;
 
     private void Start()
     {
@@ -58,14 +60,20 @@ public class EnemyStatistics : MonoBehaviour
     {
         playerTarget = GameObject.FindGameObjectWithTag("Player");
         int indexPlayerModel = Random.Range(0, enemyModels.Count);
-        enemyModels[indexPlayerModel].SetActive(true);
+        ActivateEnemyModel(indexPlayerModel);
         currentHealth = Random.Range(minHealth, maxHealth);
         currentScoreReward = Random.Range(minScoreReward, maxScoreReward);
         enemyAttackInterface = enemyAttack as IEnemyAttack;
-        int indexWalk = Random.Range(0, 2);
         animator = enemyModels[indexPlayerModel].GetComponent<Animator>();
-        animator.SetInteger("IndexWalk", indexWalk);
         timeSinceLastAttack = attackCooldown;
+    }
+
+    private void ActivateEnemyModel(int index)
+    {
+        for (int i = 0; i < enemyModels.Count; i++)
+        {
+            enemyModels[i].SetActive(i == index);
+        }
     }
 
     private void HandleAIState()
@@ -73,24 +81,33 @@ public class EnemyStatistics : MonoBehaviour
         switch (CurrentState)
         {
             case AIState.Pursue:
-                animator.SetBool("Walk", true);
-                enemyMovement?.MoveTowardsPlayer(playerTarget.transform.position, this);
-                timeSinceLastAttack = attackCooldown;
+                PursuePlayer();
                 break;
 
             case AIState.Attack:
-                animator.SetBool("Walk", false);
-                LookAtPlayer();
-                timeSinceLastAttack += Time.deltaTime;
-
-                if (enemyAttackInterface != null && timeSinceLastAttack >= attackCooldown)
-                {
-                    animator.SetTrigger("Attack");
-                    Invoke("PerformAttackAfterDelay", 1f);
-                    timeSinceLastAttack = 0;
-                }
-
+                AttackPlayer();
                 break;
+        }
+    }
+
+    private void PursuePlayer()
+    {
+        animator.SetBool("Walk", true);
+        enemyMovement?.MoveTowardsPlayer(playerTarget.transform.position, this);
+        timeSinceLastAttack = attackCooldown;
+    }
+
+    private void AttackPlayer()
+    {
+        animator.SetBool("Walk", false);
+        LookAtPlayer();
+        timeSinceLastAttack += Time.deltaTime;
+
+        if (enemyAttackInterface != null && timeSinceLastAttack >= attackCooldown)
+        {
+            animator.SetTrigger("Attack");
+            Invoke("PerformAttackAfterDelay", 1f);
+            timeSinceLastAttack = 0;
         }
     }
 
@@ -113,7 +130,7 @@ public class EnemyStatistics : MonoBehaviour
 
     private void Death()
     {
-        // Add logic for enemy death here
+        // Логика смерти врага
         Destroy(gameObject);
     }
 

@@ -2,7 +2,6 @@ using UnityEngine;
 
 public class SwingingWeapon : MonoBehaviour
 {
-    [Header("Weapon Sway Settings")]
     [SerializeField] private float swayAmount;
     [SerializeField] private float smoothFactor;
 

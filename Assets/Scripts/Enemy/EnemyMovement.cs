@@ -4,14 +4,14 @@ public class EnemyMovement : MonoBehaviour
 {
     public void MoveTowardsPlayer(Vector3 playerPosition, EnemyStatistics enemyStatistics)
     {
-        if (enemyStatistics.navMeshAgent != null)
+        if (IsNavMeshAgentAvailable(enemyStatistics))
         {
-            SetDestinationToPlayer(playerPosition, enemyStatistics);
+            enemyStatistics.navMeshAgent.SetDestination(playerPosition);
         }
     }
 
-    private void SetDestinationToPlayer(Vector3 playerPosition, EnemyStatistics enemyStatistics)
+    private bool IsNavMeshAgentAvailable(EnemyStatistics enemyStatistics)
     {
-        enemyStatistics.navMeshAgent.SetDestination(playerPosition);
+        return enemyStatistics.navMeshAgent != null;
     }
 }

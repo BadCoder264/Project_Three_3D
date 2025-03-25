@@ -2,7 +2,6 @@ using UnityEngine;
 
 public class CameraRotate : MonoBehaviour
 {
-    [Header("Camera Rotation Settings")]
     [SerializeField] private float lookSpeed;
     [SerializeField] private float upDownRange;
 
@@ -13,18 +12,35 @@ public class CameraRotate : MonoBehaviour
         LockCursor();
     }
 
-    private void Update()
+    public void RotateCamera()
     {
-        RotateCamera();
+        if (IsLookSpeedValid())
+        {
+            HandleMouseInput();
+        }
+        else
+        {
+            Debug.LogError("Look Speed must be greater than zero!", this);
+        }
     }
 
-    public void RotateCamera()
+    private bool IsLookSpeedValid()
+    {
+        return lookSpeed > 0;
+    }
+
+    private void HandleMouseInput()
     {
         float mouseX = Input.GetAxis("Mouse X") * lookSpeed;
         float mouseY = Input.GetAxis("Mouse Y") * lookSpeed;
 
         rotationX = Mathf.Clamp(rotationX - mouseY, -upDownRange, upDownRange);
 
+        ApplyRotation(mouseX);
+    }
+
+    private void ApplyRotation(float mouseX)
+    {
         transform.localRotation = Quaternion.Euler(rotationX, 0f, 0f);
         transform.parent.Rotate(Vector3.up * mouseX);
     }

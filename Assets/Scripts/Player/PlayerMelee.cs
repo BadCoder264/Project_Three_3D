@@ -3,58 +3,76 @@ using UnityEngine;
 
 public class PlayerMelee : MonoBehaviour
 {
-    [Header("Weapon Settings")]
     [SerializeField] private int attackDamage;
     [SerializeField] private float attackRange;
     [SerializeField] private float timeBetweenAttack;
     [SerializeField] private LayerMask targetLayerMask;
     [SerializeField] private Transform attackPoint;
+    [SerializeField] private TMP_Text ammoText;
     [SerializeField] private Animator animator;
 
-    [Header("UI Elements")]
-    [SerializeField] private TMP_Text ammoText;
-    
     private float timeSinceLastAttack;
 
     private void Update()
     {
         timeSinceLastAttack += Time.deltaTime;
-        UpdateUi();
+        UpdateUI();
     }
 
     public void ExecuteAttack(bool isKeyPressed)
     {
-        if (isKeyPressed && timeSinceLastAttack >= timeBetweenAttack)
+        if (isKeyPressed && CanAttack())
         {
-            animator.SetTrigger("Attack");
+            TriggerAttackAnimation();
             Invoke("AttackLogic", 0.3f);
-
             timeSinceLastAttack = 0;
         }
     }
 
+    private bool CanAttack()
+    {
+        return timeSinceLastAttack >= timeBetweenAttack;
+    }
+
+    private void TriggerAttackAnimation()
+    {
+        if (animator == null)
+        {
+            Debug.LogError("Animator is not assigned!", this);
+            return;
+        }
+
+        animator.SetTrigger("Attack");
+    }
+
     private void AttackLogic()
     {
-        Collider[] enemies = Physics.OverlapSphere(attackPoint.position, attackRange, targetLayerMask);
-
-        if (enemies.Length > 0)
+        if (attackPoint == null)
         {
-            for (int i = 0; i < enemies.Length; i++)
-            {
-                var enemyStatistics = enemies[i].GetComponent<EnemyStatistics>();
-                if (enemyStatistics != null)
-                {
-                    enemyStatistics.Damage(attackDamage);
-                }
-            }
+            Debug.LogError("Attack Point is not assigned!", this);
+            return;
+        }
+
+        Collider[] enemies = Physics.OverlapSphere(attackPoint.position, attackRange, targetLayerMask);
+        foreach (var enemy in enemies)
+        {
+            var enemyStatistics = enemy.GetComponent<EnemyStatistics>();
+            enemyStatistics?.Damage(attackDamage);
         }
     }
 
-    private void UpdateUi()
+    private void UpdateUI()
     {
         if (gameObject.activeSelf)
         {
-            ammoText.text = "";
+            if (ammoText != null)
+            {
+                ammoText.text = "";
+            }
+            else
+            {
+                Debug.LogError("Ammo Text is not assigned!", this);
+            }
         }
     }
 }

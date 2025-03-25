@@ -6,7 +6,7 @@ public class EnemyMelee : MonoBehaviour, IEnemyAttack
 
     public void Attack(EnemyStatistics enemyStatistics)
     {
-        if (enemyStatistics.playerTarget != null)
+        if (IsPlayerTargetValid(enemyStatistics))
         {
             var playerStatistics = enemyStatistics.playerTarget.GetComponent<PlayerStatistics>();
 
@@ -15,5 +15,10 @@ public class EnemyMelee : MonoBehaviour, IEnemyAttack
                 playerStatistics.Damage(attackDamage);
             }
         }
+    }
+
+    private bool IsPlayerTargetValid(EnemyStatistics enemyStatistics)
+    {
+        return enemyStatistics.playerTarget != null;
     }
 }

@@ -6,22 +6,20 @@ using UnityEngine.UI;
 
 public class WaveManager : MonoBehaviour, IInteractive
 {
-    [Header("Wave Settings")]
     [SerializeField] private int currentWaveMaxEnemies;
     [SerializeField] private int overallMaxEnemies;
     [SerializeField] private float minSpawnIntervalEnemies;
     [SerializeField] private float maxSpawnIntervalEnemies;
-    [SerializeField] private Camera playerCamera;
     [SerializeField] private List<GameObject> enemyPrefabs;
     [SerializeField] private List<Transform> spawnPoints;
-
-    [Header("UI Elements")]
     [SerializeField] private TMP_Text waveDisplayText;
     [SerializeField] private Slider enemyCountSlider;
 
     private int currentWaveIndex;
     private bool isWaveActive;
     private List<GameObject> activeEnemies = new List<GameObject>();
+
+    private int IncreaseEnemyCount = 5;
 
     private void Start()
     {
@@ -30,8 +28,13 @@ public class WaveManager : MonoBehaviour, IInteractive
 
     private void Update()
     {
-        CleanUpActiveEnemies();
-        CheckWaveStatus();
+        activeEnemies.RemoveAll(enemy => enemy == null);
+
+        if (activeEnemies.Count == 0 && isWaveActive)
+        {
+            isWaveActive = false;
+        }
+
         UpdateUI();
     }
 
@@ -39,42 +42,11 @@ public class WaveManager : MonoBehaviour, IInteractive
     {
         if (!isWaveActive)
         {
-            StartNewWave();
-        }
-    }
+            currentWaveIndex++;
+            currentWaveMaxEnemies = Mathf.Min(currentWaveMaxEnemies + IncreaseEnemyCount, overallMaxEnemies);
+            isWaveActive = true;
 
-    private void CleanUpActiveEnemies()
-    {
-        activeEnemies.RemoveAll(enemy => enemy == null);
-    }
-
-    private void CheckWaveStatus()
-    {
-        if (activeEnemies.Count == 0 && isWaveActive)
-        {
-            isWaveActive = false;
-        }
-    }
-
-    private void StartNewWave()
-    {
-        currentWaveIndex++;
-        UpdateCurrentWaveMaxEnemies();
-        isWaveActive = true;
-
-        float spawnInterval = Random.Range(minSpawnIntervalEnemies, maxSpawnIntervalEnemies);
-        StartCoroutine(SpawnEnemiesCoroutine(spawnInterval));
-    }
-
-    private void UpdateCurrentWaveMaxEnemies()
-    {
-        if (currentWaveMaxEnemies < overallMaxEnemies)
-        {
-            currentWaveMaxEnemies += 5;
-        }
-        else
-        {
-            currentWaveMaxEnemies = overallMaxEnemies;
+            StartCoroutine(SpawnEnemiesCoroutine(Random.Range(minSpawnIntervalEnemies, maxSpawnIntervalEnemies)));
         }
     }
 
@@ -95,6 +67,12 @@ public class WaveManager : MonoBehaviour, IInteractive
 
     private void SpawnEnemy(int maxEnemyTypeIndex)
     {
+        if (enemyPrefabs.Count == 0 || spawnPoints.Count == 0)
+        {
+            Debug.LogWarning("Enemy prefabs or spawn points are not assigned!", this);
+            return;
+        }
+
         int spawnIndex = Random.Range(0, spawnPoints.Count);
         int enemyTypeIndex = Random.Range(0, maxEnemyTypeIndex + 1);
 
@@ -112,24 +90,23 @@ public class WaveManager : MonoBehaviour, IInteractive
 
     private void UpdateUI()
     {
-        UpdateWaveDisplay();
-        UpdateEnemyCountSlider();
-    }
-
-    private void UpdateWaveDisplay()
-    {
         if (waveDisplayText != null)
         {
             waveDisplayText.text = $"Wave: {currentWaveIndex}";
         }
-    }
+        else
+        {
+            Debug.LogWarning("Wave Display Text is not assigned!", this);
+        }
 
-    private void UpdateEnemyCountSlider()
-    {
         if (enemyCountSlider != null)
         {
             enemyCountSlider.maxValue = currentWaveMaxEnemies;
             enemyCountSlider.value = activeEnemies.Count;
+        }
+        else
+        {
+            Debug.LogWarning("Enemy Count Slider is not assigned!", this);
         }
     }
 }
