@@ -66,9 +66,9 @@ MonoBehaviour:
     m_Bits: 128
   playerCamera: {fileID: 5707143022120674592}
   weaponHandler: {fileID: 8218130981186929265}
+  interactivePromptText: {fileID: 2154486075086025756}
   playerStatistics: {fileID: 178026562751580564}
   inputListener: {fileID: 4721695391550661996}
-  interactivePromptText: {fileID: 2154486075086025756}
 --- !u!1 &289000000006594848
 GameObject:
   m_ObjectHideFlags: 0
@@ -730,7 +730,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3806ecf82a12bcc41baa171859b58b47, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  CurrentWeaponIndex: 0
   inputListener: {fileID: 4721695391550661996}
 --- !u!114 &3057515410162000166
 MonoBehaviour:
@@ -858,15 +857,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eaa154950f716bf41b6c99024f5f4c57, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  attackDamage: 5
+  attackDamage: 2
   attackRange: 0.8
   timeBetweenAttack: 1.2
   targetLayerMask:
     serializedVersion: 2
     m_Bits: 64
   attackPoint: {fileID: 588335483063058435}
-  animator: {fileID: 8414346754143804425}
   ammoText: {fileID: 8519890619112387184}
+  animator: {fileID: 8414346754143804425}
 --- !u!1 &5487085385101717139
 GameObject:
   m_ObjectHideFlags: 0
@@ -928,7 +927,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 5bb68a94905ffc0418608fc7e572ea42, type: 2}
+  - {fileID: 2100000, guid: 2bf2f69a5c3f9eb45b1db58fb7f33a00, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -1405,6 +1404,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Score: 0
+  HealthRecoveryPercentage: 0
+  RecoilReductionPercentage: 0
+  DamageIncreasePercentage: 0
+  IsMedicalUpgrade: 0
+  IsTrainingUpgrade: 0
+  IsCraftingUpgrade: 0
   maxHealth: 20
   scoreDisplayText: {fileID: 2319520789065863218}
   healthSlider: {fileID: 1235667395238058544}

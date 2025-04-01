@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 03b9dc2291ff0a44bac02640137b69c1, type: 3}
   m_Name: Machinegun
   m_EditorClassIdentifier: 
-  DamageAmount: 5
+  DamageAmount: 1
   MaxAmmo: 100
   RecoilX: -6
   RecoilY: 4

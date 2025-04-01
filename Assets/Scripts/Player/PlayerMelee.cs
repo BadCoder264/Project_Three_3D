@@ -47,6 +47,8 @@ public class PlayerMelee : MonoBehaviour
 
     private void AttackLogic()
     {
+        int actualDamage = attackDamage;
+
         if (attackPoint == null)
         {
             Debug.LogError("Attack Point is not assigned!", this);
@@ -57,7 +59,7 @@ public class PlayerMelee : MonoBehaviour
         foreach (var enemy in enemies)
         {
             var enemyStatistics = enemy.GetComponent<EnemyStatistics>();
-            enemyStatistics?.Damage(attackDamage);
+            enemyStatistics?.Damage(actualDamage);
         }
     }
 

@@ -4399,6 +4399,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   attackDamage: 8
+  attackRange: 0.8
 --- !u!1 &3416294568432277231
 GameObject:
   m_ObjectHideFlags: 0
@@ -4505,7 +4506,6 @@ MonoBehaviour:
   enemyModels:
   - {fileID: 8633245065644052729}
   - {fileID: 6704973270045313370}
-  animator: {fileID: 0}
   enemyMovement: {fileID: 765778813436714186}
   enemyAttack: {fileID: 3005626727546780720}
 --- !u!114 &765778813436714186

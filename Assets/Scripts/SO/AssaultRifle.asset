@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 03b9dc2291ff0a44bac02640137b69c1, type: 3}
   m_Name: AssaultRifle
   m_EditorClassIdentifier: 
-  DamageAmount: 6
+  DamageAmount: 2
   MaxAmmo: 30
   RecoilX: -5
   RecoilY: 6

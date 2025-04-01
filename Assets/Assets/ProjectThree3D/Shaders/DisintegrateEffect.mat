@@ -118,7 +118,7 @@ Material:
     - _DetailAlbedoMapScale: 1
     - _DetailNormalMapScale: 1
     - _DissolveAmmount: 0
-    - _DissolveScale: 40
+    - _DissolveScale: 60
     - _DissolveWidth: 0.06
     - _DstBlend: 0
     - _DstBlendAlpha: 0
@@ -147,7 +147,7 @@ Material:
     m_Colors:
     - _BaseColor: {r: 1, g: 1, b: 1, a: 1}
     - _Color: {r: 1, g: 1, b: 1, a: 1}
-    - _DissolveColor: {r: 0, g: 1.4478779, b: 4, a: 1}
+    - _DissolveColor: {r: 11.984314, g: 0.53690296, b: 0, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
     - _SpecColor: {r: 0.19999996, g: 0.19999996, b: 0.19999996, a: 1}
   m_BuildTextureStacks: []

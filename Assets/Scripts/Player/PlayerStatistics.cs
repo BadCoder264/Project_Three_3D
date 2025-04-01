@@ -1,7 +1,7 @@
 using TMPro;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
-using System.Collections;
 
 public class PlayerStatistics : MonoBehaviour
 {
@@ -20,31 +20,35 @@ public class PlayerStatistics : MonoBehaviour
     }
     public int HealthRecoveryPercentage;
     public int RecoilReductionPercentage;
+    public int DamageIncreasePercentage;
     public bool IsMedicalUpgrade;
     public bool IsTrainingUpgrade;
+    public bool IsCraftingUpgrade;
 
     [SerializeField] private int maxHealth;
     [SerializeField] private TMP_Text scoreDisplayText;
     [SerializeField] private Slider healthSlider;
 
     private int currentHealth;
+    private float healthRegenTimer = 0f; // Таймер для отслеживания времени
 
     private void Start()
     {
         LoadUpgrade();
         InitializeUI();
-        StartCoroutine(HealthRegeneration());
     }
 
     private void Update()
     {
         UpdateUI();
+        HealthRegeneration();
     }
 
     public void LoadUpgrade()
     {
         IsMedicalUpgrade = PlayerPrefs.HasKey("HealthRecoveryPercentage");
         IsTrainingUpgrade = PlayerPrefs.HasKey("RecoilReductionPercentage");
+        IsCraftingUpgrade = PlayerPrefs.HasKey("DamageIncreasePercentage");
 
         if (PlayerPrefs.HasKey("HealthRecoveryPercentage"))
         {
@@ -54,6 +58,16 @@ public class PlayerStatistics : MonoBehaviour
         if (PlayerPrefs.HasKey("RecoilReductionPercentage"))
         {
             RecoilReductionPercentage = PlayerPrefs.GetInt("RecoilReductionPercentage");
+        }
+
+        if (PlayerPrefs.HasKey("DamageIncreasePercentage"))
+        {
+            DamageIncreasePercentage = PlayerPrefs.GetInt("DamageIncreasePercentage");
+        }
+
+        if (PlayerPrefs.HasKey("SavedScore"))
+        {
+            Score = PlayerPrefs.GetInt("SavedScore");
         }
     }
 
@@ -83,8 +97,8 @@ public class PlayerStatistics : MonoBehaviour
 
     private void Death()
     {
-        // Логика смерти игрока
-        Destroy(gameObject);
+        PlayerPrefs.SetInt("SavedScore", Score);
+        SceneManager.LoadScene("MainMenu");
     }
 
     private void InitializeUI()
@@ -125,16 +139,18 @@ public class PlayerStatistics : MonoBehaviour
         }
     }
 
-    private IEnumerator HealthRegeneration()
+    private void HealthRegeneration()
     {
-        while (true)
+        if (IsMedicalUpgrade)
         {
-            if (IsMedicalUpgrade)
+            healthRegenTimer += Time.deltaTime;
+
+            if (healthRegenTimer >= 12f)
             {
                 int healthIncrease = Mathf.FloorToInt(maxHealth * (HealthRecoveryPercentage / 100f));
                 CurrentHealth += healthIncrease;
+                healthRegenTimer = 0f;
             }
-            yield return new WaitForSeconds(12);
         }
     }
 }

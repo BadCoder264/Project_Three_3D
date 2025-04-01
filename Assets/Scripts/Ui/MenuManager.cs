@@ -5,6 +5,12 @@ public class MenuManager : MonoBehaviour
     [SerializeField] private PlayerStatistics playerStatistics;
     [SerializeField] private UpgradeManager upgradeManager;
 
+    private void Start()
+    {
+        Cursor.lockState = CursorLockMode.None;
+        Cursor.visible = true;
+    }
+
     public void Continue()
     {
         LoadAll();

@@ -64,7 +64,7 @@ public class PlayerShooting : MonoBehaviour
         animator.SetTrigger("Reload");
         isReload = true;
 
-        yield return new WaitForSeconds(1.4f);
+        yield return new WaitForSeconds(1.75f);
 
         ammo = weaponSettings.MaxAmmo;
         isReload = false;
@@ -90,18 +90,25 @@ public class PlayerShooting : MonoBehaviour
 
     private void ProcessShooting()
     {
-        if (Physics.Raycast(playerCamera.ScreenPointToRay(Input.mousePosition), out RaycastHit hit, Mathf.Infinity, weaponSettings.TargetLayerMask))
+        PlayerStatistics playerStatistics = FindObjectOfType<PlayerStatistics>();
+        int actualDamage = weaponSettings.DamageAmount;
+
+        if (playerStatistics.IsCraftingUpgrade)
         {
-            hit.collider.GetComponent<EnemyStatistics>()?.Damage(weaponSettings.DamageAmount);
+            actualDamage += Mathf.RoundToInt(actualDamage * (playerStatistics.DamageIncreasePercentage / 100f));
         }
 
-        PlayerStatistics playerStatistics = FindObjectOfType<PlayerStatistics>();
+        if (Physics.Raycast(playerCamera.ScreenPointToRay(Input.mousePosition), out RaycastHit hit, Mathf.Infinity, weaponSettings.TargetLayerMask))
+        {
+            hit.collider.GetComponent<EnemyStatistics>()?.Damage(actualDamage);
+        }
+
         int recoilReduction = playerStatistics.RecoilReductionPercentage;
 
         recoil.RecoilFire(
-            weaponSettings.RecoilX * (1 - recoilReduction / 100),
-            weaponSettings.RecoilY * (1 - recoilReduction / 100),
-            weaponSettings.RecoilZ * (1 - recoilReduction / 100)
+            weaponSettings.RecoilX * (1 - recoilReduction / 100f),
+            weaponSettings.RecoilY * (1 - recoilReduction / 100f),
+            weaponSettings.RecoilZ * (1 - recoilReduction / 100f)
         );
 
         animator?.SetTrigger("Shoot");

@@ -45,17 +45,18 @@ public class UpgradeManager : MonoBehaviour, IInteractive
 
     public void UpgradeRoom(int indexRoom)
     {
+        PlayerStatistics playerStatistics = FindObjectOfType<PlayerStatistics>();
+
         if (roomStatics == null || indexRoom < 0 || indexRoom >= roomStatics.Count)
         {
             Debug.LogError("Room Statics list is not assigned or index is out of range!", this);
             return;
         }
 
-        if (roomStatics[indexRoom].LevelRoom < roomStatics.Count)
+        if (roomStatics[indexRoom].PriseLevelRoom <= playerStatistics.Score && roomStatics[indexRoom].LevelRoom < roomStatics.Count)
         {
             roomStatics[indexRoom].LevelRoom++;
             PlayerPrefs.SetInt("RoomLevel_" + indexRoom, roomStatics[indexRoom].LevelRoom);
-            PlayerStatistics playerStatistics = FindObjectOfType<PlayerStatistics>();
 
             if (roomStatics[indexRoom].IsMedicalUpgrade)
             {
@@ -69,11 +70,17 @@ public class UpgradeManager : MonoBehaviour, IInteractive
                 playerStatistics.RecoilReductionPercentage += 15;
                 PlayerPrefs.SetInt("RecoilReductionPercentage", playerStatistics.RecoilReductionPercentage);
             }
-        }
+            else if (roomStatics[indexRoom].IsCraftingUpgrade)
+            {
+                playerStatistics.IsCraftingUpgrade = true;
+                playerStatistics.DamageIncreasePercentage += 5;
+                PlayerPrefs.SetInt("DamageIncreasePercentage", playerStatistics.DamageIncreasePercentage);
+            }
 
-        roomStatics[indexRoom].IsOpen = true;
-        roomStatics[indexRoom].DoorRoom.SetActive(!roomStatics[indexRoom].IsOpen);
-        PlayerPrefs.SetInt("RoomOpen_" + indexRoom, roomStatics[indexRoom].IsOpen ? 1 : 0);
+            roomStatics[indexRoom].IsOpen = true;
+            roomStatics[indexRoom].DoorRoom.SetActive(!roomStatics[indexRoom].IsOpen);
+            PlayerPrefs.SetInt("RoomOpen_" + indexRoom, roomStatics[indexRoom].IsOpen ? 1 : 0);
+        }
     }
 
     public void ExitTheUpgrade()
@@ -99,7 +106,7 @@ public class UpgradeManager : MonoBehaviour, IInteractive
             return;
         }
 
-        descriptionUpgradeUi.text = roomStatics[indexRoom].DescriptionRoom;
+        descriptionUpgradeUi.text = roomStatics[indexRoom].DescriptionRoom + "\n Current level: " + roomStatics[indexRoom].LevelRoom + "\n You need: " + roomStatics[indexRoom].PriseLevelRoom;
     }
 
     public void MouseExitEvent()

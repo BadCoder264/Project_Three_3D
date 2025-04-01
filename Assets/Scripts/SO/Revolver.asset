@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 03b9dc2291ff0a44bac02640137b69c1, type: 3}
   m_Name: Revolver
   m_EditorClassIdentifier: 
-  DamageAmount: 10
+  DamageAmount: 3
   MaxAmmo: 7
   RecoilX: -16
   RecoilY: 4

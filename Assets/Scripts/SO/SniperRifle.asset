@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 03b9dc2291ff0a44bac02640137b69c1, type: 3}
   m_Name: SniperRifle
   m_EditorClassIdentifier: 
-  DamageAmount: 20
+  DamageAmount: 5
   MaxAmmo: 1
   RecoilX: -18
   RecoilY: 6

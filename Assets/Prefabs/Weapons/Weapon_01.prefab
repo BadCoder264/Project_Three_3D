@@ -92,7 +92,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _TypeObject: 0
-  price: 0
+  price: 165
   product: {fileID: 7718394289836038039}
   productPriceDisplayText: {fileID: 4930012478954131341}
 --- !u!114 &5145473205222789298
@@ -107,13 +107,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 148b708ccedb52d47ae6fde24c85b3be, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  weaponSettings: {fileID: 11400000, guid: a92c4c195b0b3ac4b8ae6fb62e6fa85e, type: 2}
+  recoilReductionPercentage: 0
+  IsWeaponEquipped: 0
   playerCamera: {fileID: 0}
+  ammoText: {fileID: 0}
   animator: {fileID: 5443032367796551101}
   shootEffect: {fileID: 8955291233229585393}
+  weaponSettings: {fileID: 11400000, guid: a92c4c195b0b3ac4b8ae6fb62e6fa85e, type: 2}
   recoil: {fileID: 0}
-  ammoText: {fileID: 0}
-  IsWeaponEquipped: 0
 --- !u!1 &2467950618861527435
 GameObject:
   m_ObjectHideFlags: 0
