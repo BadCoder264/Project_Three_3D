@@ -68,10 +68,7 @@ public class WaveManager : MonoBehaviour, IInteractive
     private void SpawnEnemy(int maxEnemyTypeIndex)
     {
         if (enemyPrefabs.Count == 0 || spawnPoints.Count == 0)
-        {
-            Debug.LogWarning("Enemy prefabs or spawn points are not assigned!", this);
             return;
-        }
 
         int spawnIndex = Random.Range(0, spawnPoints.Count);
         int enemyTypeIndex = Random.Range(0, maxEnemyTypeIndex + 1);
@@ -82,9 +79,15 @@ public class WaveManager : MonoBehaviour, IInteractive
 
     private int GetMaxEnemyTypeIndex(int waveIndex)
     {
-        if (waveIndex < 15) return 0;
-        if (waveIndex < 30) return 1;
-        if (waveIndex < 45) return 2;
+        if (waveIndex < 15)
+            return 0;
+
+        if (waveIndex < 30)
+            return 1;
+
+        if (waveIndex < 45)
+            return 2;
+
         return 3;
     }
 
@@ -94,19 +97,11 @@ public class WaveManager : MonoBehaviour, IInteractive
         {
             waveDisplayText.text = $"Wave: {currentWaveIndex}";
         }
-        else
-        {
-            Debug.LogWarning("Wave Display Text is not assigned!", this);
-        }
 
         if (enemyCountSlider != null)
         {
             enemyCountSlider.maxValue = currentWaveMaxEnemies;
             enemyCountSlider.value = activeEnemies.Count;
-        }
-        else
-        {
-            Debug.LogWarning("Enemy Count Slider is not assigned!", this);
         }
     }
 }

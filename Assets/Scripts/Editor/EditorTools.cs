@@ -56,6 +56,11 @@ public class EditorTools : EditorWindow
             RandomizeSelectedObject();
         }
 
+        if (GUILayout.Button("Sort Children Alphabetically"))
+        {
+            SortSelectedChildrenAlphabetically();
+        }
+
         serializedObject.ApplyModifiedProperties();
     }
 
@@ -97,5 +102,38 @@ public class EditorTools : EditorWindow
         Selection.activeGameObject = newObject;
 
         Debug.Log("Replaced " + selectedObjectName + " with " + randomObject.name);
+    }
+
+    private void SortSelectedChildrenAlphabetically()
+    {
+        if (Selection.activeGameObject == null)
+        {
+            Debug.LogWarning("Please select a parent GameObject to sort children.");
+            return;
+        }
+
+        GameObject parentObject = Selection.activeGameObject;
+        int childCount = parentObject.transform.childCount;
+
+        if (childCount == 0)
+        {
+            Debug.LogWarning("Selected GameObject has no children to sort.");
+            return;
+        }
+
+        Transform[] children = new Transform[childCount];
+        for (int i = 0; i < childCount; i++)
+        {
+            children[i] = parentObject.transform.GetChild(i);
+        }
+
+        System.Array.Sort(children, (a, b) => a.name.CompareTo(b.name));
+
+        for (int i = 0; i < children.Length; i++)
+        {
+            children[i].SetSiblingIndex(i);
+        }
+
+        Debug.Log($"Sorted {childCount} children of {parentObject.name} alphabetically.");
     }
 }

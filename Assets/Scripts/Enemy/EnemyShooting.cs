@@ -3,28 +3,20 @@ using UnityEngine;
 public class EnemyShooting : MonoBehaviour, IEnemyAttack
 {
     [SerializeField] private int attackDamage;
+    [SerializeField] private float attackDistance;
     [SerializeField] private LayerMask targetLayerMask;
-    [SerializeField] private Transform startShoot;
+    [SerializeField] private Transform shootPoint;
 
-    public void Attack(EnemyStatistics enemyStatistics)
+    public void Attack(AudioSource audioSource)
     {
-        if (IsPlayerTargetValid(enemyStatistics))
+        if (Physics.Raycast(shootPoint.position, shootPoint.forward,
+            out RaycastHit hit, attackDistance, targetLayerMask))
         {
-            PerformRaycastAttack();
-        }
-    }
-
-    private bool IsPlayerTargetValid(EnemyStatistics enemyStatistics)
-    {
-        return enemyStatistics.playerTarget != null;
-    }
-
-    private void PerformRaycastAttack()
-    {
-        if (Physics.Raycast(startShoot.position, startShoot.forward, out RaycastHit hit, Mathf.Infinity, targetLayerMask))
-        {
-            var playerStatistics = hit.collider.GetComponent<PlayerStatistics>();
-            playerStatistics?.Damage(attackDamage);
+            if (hit.collider.tag == "Player")
+            {
+                hit.collider.GetComponent<PlayerStatistics>()?.Damage(attackDamage);
+                Debug.Log("Ranged attack hit player!");
+            }
         }
     }
 }

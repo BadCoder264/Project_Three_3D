@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.UI;
 
 [System.Serializable]
 public class RoomStatics
@@ -12,4 +13,5 @@ public class RoomStatics
     public bool IsTrainingUpgrade;
     public bool IsCraftingUpgrade;
     public GameObject DoorRoom;
+    public Button Button;
 }

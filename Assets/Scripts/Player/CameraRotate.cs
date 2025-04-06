@@ -18,10 +18,6 @@ public class CameraRotate : MonoBehaviour
         {
             HandleMouseInput();
         }
-        else
-        {
-            Debug.LogError("Look Speed must be greater than zero!", this);
-        }
     }
 
     private bool IsLookSpeedValid()

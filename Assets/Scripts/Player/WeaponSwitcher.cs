@@ -10,18 +10,12 @@ public class WeaponSwitcher : MonoBehaviour
     public void Initialize(List<GameObject> weaponList)
     {
         if (inputListener == null)
-        {
-            Debug.LogError("Input Listener is not assigned!", this);
             return;
-        }
 
         inputListener.PlayerWeaponsList = weaponList ?? new List<GameObject>();
 
         if (weaponList == null || weaponList.Count == 0)
-        {
-            Debug.LogError("Weapon list is null or empty!", this);
             return;
-        }
 
         CurrentWeaponIndex = 0;
         UpdateWeaponVisibility();
@@ -30,10 +24,7 @@ public class WeaponSwitcher : MonoBehaviour
     public void SwitchWeapon(int direction)
     {
         if (inputListener?.PlayerWeaponsList == null)
-        {
-            Debug.LogError("Input Listener or Player Weapons List is not assigned!", this);
             return;
-        }
 
         CurrentWeaponIndex += direction;
 
@@ -52,10 +43,7 @@ public class WeaponSwitcher : MonoBehaviour
     private void UpdateWeaponVisibility()
     {
         if (inputListener?.PlayerWeaponsList == null)
-        {
-            Debug.LogError("Input Listener or Player Weapons List is not assigned!", this);
             return;
-        }
 
         for (int i = 0; i < inputListener.PlayerWeaponsList.Count; i++)
         {

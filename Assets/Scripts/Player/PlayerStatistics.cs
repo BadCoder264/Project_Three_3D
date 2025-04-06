@@ -30,7 +30,7 @@ public class PlayerStatistics : MonoBehaviour
     [SerializeField] private Slider healthSlider;
 
     private int currentHealth;
-    private float healthRegenTimer = 0f; // Таймер для отслеживания времени
+    private float healthRegenTimer = 0f;
 
     private void Start()
     {
@@ -50,17 +50,17 @@ public class PlayerStatistics : MonoBehaviour
         IsTrainingUpgrade = PlayerPrefs.HasKey("RecoilReductionPercentage");
         IsCraftingUpgrade = PlayerPrefs.HasKey("DamageIncreasePercentage");
 
-        if (PlayerPrefs.HasKey("HealthRecoveryPercentage"))
+        if (IsMedicalUpgrade)
         {
             HealthRecoveryPercentage = PlayerPrefs.GetInt("HealthRecoveryPercentage");
         }
 
-        if (PlayerPrefs.HasKey("RecoilReductionPercentage"))
+        if (IsTrainingUpgrade)
         {
             RecoilReductionPercentage = PlayerPrefs.GetInt("RecoilReductionPercentage");
         }
 
-        if (PlayerPrefs.HasKey("DamageIncreasePercentage"))
+        if (IsCraftingUpgrade)
         {
             DamageIncreasePercentage = PlayerPrefs.GetInt("DamageIncreasePercentage");
         }
@@ -77,10 +77,6 @@ public class PlayerStatistics : MonoBehaviour
         {
             CurrentHealth -= damageAmount;
         }
-        else
-        {
-            Debug.LogError("Damage amount cannot be negative!", this);
-        }
     }
 
     public void Healing(int healingAmount)
@@ -88,10 +84,6 @@ public class PlayerStatistics : MonoBehaviour
         if (healingAmount > 0)
         {
             CurrentHealth += healingAmount;
-        }
-        else
-        {
-            Debug.LogError("Healing amount cannot be negative!", this);
         }
     }
 
@@ -120,10 +112,6 @@ public class PlayerStatistics : MonoBehaviour
         {
             scoreDisplayText.text = $"Score: {Score}";
         }
-        else
-        {
-            Debug.LogError("Score Display Text is not assigned!", this);
-        }
     }
 
     private void UpdateHealthSlider()
@@ -132,10 +120,6 @@ public class PlayerStatistics : MonoBehaviour
         {
             healthSlider.maxValue = maxHealth;
             healthSlider.value = CurrentHealth;
-        }
-        else
-        {
-            Debug.LogError("Health Slider is not assigned!", this);
         }
     }
 

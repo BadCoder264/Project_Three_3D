@@ -37,7 +37,6 @@ public class Interactive : MonoBehaviour
     {
         if (playerCamera == null)
         {
-            Debug.LogError("Player Camera is not assigned!", this);
             hit = default;
             return false;
         }
@@ -48,10 +47,7 @@ public class Interactive : MonoBehaviour
     private void UpdateUI()
     {
         if (playerCamera == null || interactivePromptText == null || inputListener == null)
-        {
-            Debug.LogError("Player Camera, Interactive Prompt Text, or Input Listener is not assigned!", this);
             return;
-        }
 
         if (inputListener.enabled)
         {

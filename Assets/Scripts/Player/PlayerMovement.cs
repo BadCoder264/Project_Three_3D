@@ -12,10 +12,7 @@ public class PlayerMovement : MonoBehaviour
     private void Start()
     {
         if (playerRigidbody == null)
-        {
-            Debug.LogError("Player Rigidbody is not assigned!", this);
             return;
-        }
 
         currentSpeed = minSpeed;
     }
@@ -23,10 +20,7 @@ public class PlayerMovement : MonoBehaviour
     public void Move()
     {
         if (playerCamera == null || playerRigidbody == null)
-        {
-            Debug.LogError("Player Camera or Rigidbody is not assigned!", this);
             return;
-        }
 
         Vector3 movement = CalculateMovement();
         playerRigidbody.velocity = new Vector3(movement.x * currentSpeed, playerRigidbody.velocity.y, movement.z * currentSpeed);

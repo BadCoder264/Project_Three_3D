@@ -1,41 +1,51 @@
+using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class EnemyMelee : MonoBehaviour, IEnemyAttack
 {
     [SerializeField] private int attackDamage;
-    [SerializeField] private float attackRange;
-    private Collider[] hitColliders;
+    [SerializeField] private float attackRadius;
+    [SerializeField] private LayerMask playerLayer;
+    [SerializeField] private List<AudioClip> audioClips;
 
-    public void Attack(EnemyStatistics enemyStatistics)
+    private AudioClip currentClip;
+
+    public void Attack(AudioSource audioSource)
     {
-        if (IsPlayerTargetValid(enemyStatistics))
-        {
-            var playerStatistics = enemyStatistics.playerTarget.GetComponent<PlayerStatistics>();
+        StartCoroutine(AttackLogic());
 
-            if (playerStatistics != null)
-            {
-                playerStatistics.Damage(attackDamage);
-            }
+        if (audioSource != null && audioClips != null && audioClips.Count > 0)
+        {
+            PlayRandomSound(audioSource);
+        }
+        else if (audioSource != null)
+        {
+            PlayRandomSound(audioSource);
         }
     }
 
-    private bool IsPlayerTargetValid(EnemyStatistics enemyStatistics)
+    private void PlayRandomSound(AudioSource audioSource)
     {
-        return enemyStatistics.playerTarget != null && IsPlayerInRange(enemyStatistics.playerTarget.transform);
+        int randomIndex = Random.Range(0, audioClips.Count);
+        currentClip = audioClips[randomIndex];
+
+        audioSource.clip = currentClip;
+        audioSource.Play();
     }
 
-    private bool IsPlayerInRange(Transform playerTransform)
+    IEnumerator AttackLogic()
     {
-        hitColliders = Physics.OverlapSphere(transform.position, attackRange);
+        yield return new WaitForSeconds(0.85f);
 
-        foreach (var collider in hitColliders)
+        Collider[] hits = Physics.OverlapSphere(transform.position, attackRadius, playerLayer);
+
+        foreach (var hit in hits)
         {
-            if (collider.CompareTag("Player"))
+            if (hit.tag == "Player")
             {
-                return true;
+                hit.GetComponent<PlayerStatistics>()?.Damage(attackDamage);
             }
         }
-
-        return false;
     }
 }

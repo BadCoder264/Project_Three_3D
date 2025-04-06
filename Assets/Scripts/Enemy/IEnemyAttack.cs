@@ -1,4 +1,6 @@
+using UnityEngine;
+
 public interface IEnemyAttack
 {
-    void Attack(EnemyStatistics enemyStatistics);
+    void Attack(AudioSource audioSource);
 }

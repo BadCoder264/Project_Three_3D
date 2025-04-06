@@ -9,6 +9,7 @@ public class PlayerShooting : MonoBehaviour
 
     [SerializeField] private Camera playerCamera;
     [SerializeField] private TMP_Text ammoText;
+    [SerializeField] private AudioSource audioSource;
     [SerializeField] private Animator animator;
     [SerializeField] private ParticleSystem shootEffect;
     [SerializeField] private WeaponSettings weaponSettings;
@@ -22,10 +23,7 @@ public class PlayerShooting : MonoBehaviour
     private void Start()
     {
         if (weaponSettings == null)
-        {
-            Debug.LogError("Weapon Settings is not assigned!", this);
             return;
-        }
 
         ammo = weaponSettings.MaxAmmo;
         initialPosition = transform.localPosition;
@@ -55,13 +53,7 @@ public class PlayerShooting : MonoBehaviour
 
     private IEnumerator PerformReload()
     {
-        if (animator == null)
-        {
-            Debug.LogError("Animator is not assigned!", this);
-            yield break;
-        }
-
-        animator.SetTrigger("Reload");
+        animator?.SetTrigger("Reload");
         isReload = true;
 
         yield return new WaitForSeconds(1.75f);
@@ -75,10 +67,6 @@ public class PlayerShooting : MonoBehaviour
         if (gameObject.activeSelf && weaponSettings != null && IsWeaponEquipped && ammoText != null)
         {
             ammoText.text = $"{ammo} / {weaponSettings.MaxAmmo}";
-        }
-        else if (ammoText == null)
-        {
-            Debug.LogError("Ammo Text is not assigned!", this);
         }
     }
 
@@ -111,6 +99,7 @@ public class PlayerShooting : MonoBehaviour
             weaponSettings.RecoilZ * (1 - recoilReduction / 100f)
         );
 
+        audioSource?.Play();
         animator?.SetTrigger("Shoot");
         shootEffect?.Play();
         ammo--;

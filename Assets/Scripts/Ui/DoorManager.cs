@@ -9,18 +9,12 @@ public class DoorManager : MonoBehaviour, IInteractive
     public void Interactive(PlayerStatistics playerStatistics, InputListener inputListener, PlayerShooting playerShoot, Transform weaponHandler)
     {
         if (selectLocationUi == null)
-        {
-            Debug.LogError("Select Location UI is not assigned!", this);
             return;
-        }
 
         selectLocationUi.SetActive(true);
 
         if (this.inputListener == null)
-        {
-            Debug.LogError("Input Listener is not assigned!", this);
             return;
-        }
 
         this.inputListener.enabled = false;
         Cursor.lockState = CursorLockMode.None;
@@ -31,18 +25,12 @@ public class DoorManager : MonoBehaviour, IInteractive
     public void ExitTheSelectLocation()
     {
         if (selectLocationUi == null)
-        {
-            Debug.LogError("Select Location UI is not assigned!", this);
             return;
-        }
 
         selectLocationUi.SetActive(false);
 
         if (this.inputListener == null)
-        {
-            Debug.LogError("Input Listener is not assigned!", this);
             return;
-        }
 
         this.inputListener.enabled = true;
         Cursor.lockState = CursorLockMode.Locked;
@@ -53,10 +41,7 @@ public class DoorManager : MonoBehaviour, IInteractive
     public void ChooseLocation(string nameLocation)
     {
         if (string.IsNullOrEmpty(nameLocation))
-        {
-            Debug.LogError("Location name is null or empty!", this);
             return;
-        }
 
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;

@@ -6,23 +6,8 @@ using System.Collections;
 public class EnemyStatistics : MonoBehaviour
 {
     public enum AIState { None, Pursue, Attack }
-
     [field: SerializeField] public AIState CurrentState;
-    public GameObject playerTarget;
-    public NavMeshAgent navMeshAgent;
-
-    [SerializeField] private int minHealth;
-    [SerializeField] private int maxHealth;
-    [SerializeField] private int minScoreReward;
-    [SerializeField] private int maxScoreReward;
-    [SerializeField] private float attackRange;
-    [SerializeField] private float attackCooldown;
-    [SerializeField] private List<GameObject> enemyModels;
-    [SerializeField] private EnemyMovement enemyMovement;
-    [SerializeField] private MonoBehaviour enemyAttack;
-
-    private int _currentHealth;
-    private int currentHealth
+    public int currentHealth
     {
         get => _currentHealth;
         set
@@ -34,13 +19,32 @@ public class EnemyStatistics : MonoBehaviour
             }
         }
     }
+    public GameObject playerTarget;
+    public NavMeshAgent navMeshAgent;
 
+    [SerializeField] private int minHealth;
+    [SerializeField] private int maxHealth;
+    [SerializeField] private int minScoreReward;
+    [SerializeField] private int maxScoreReward;
+    [SerializeField] private float attackRange;
+    [SerializeField] private float attackCooldown;
+    [SerializeField] private List<GameObject> enemyModels;
+    [SerializeField] private AudioSource audioSource;
+    [SerializeField] private List<AudioClip> audioClipsDamage;
+    [SerializeField] private List<AudioClip> audioClipsDeath;
+    [SerializeField] private EnemyMovement enemyMovement;
+    [SerializeField] private MonoBehaviour enemyAttack;
+
+    private int _currentHealth;
     private int currentScoreReward;
     private float timeSinceLastAttack;
     private float dissolveRate = 0.0125f;
     private float refreshRate = 0.025f;
+    private bool isDead = false;
+    private bool isPlaying = false;
     private IEnemyAttack enemyAttackInterface;
     private SkinnedMeshRenderer skinnedMeshRenderer;
+    private AudioClip currentClip;
     private Animator animator;
     private Material[] materials;
 
@@ -51,14 +55,25 @@ public class EnemyStatistics : MonoBehaviour
 
     private void Update()
     {
+        if (isDead || playerTarget == null)
+            return;
+
         UpdateAIState();
         HandleAIState();
     }
 
     public void Damage(int damageAmount)
     {
-        playerTarget.GetComponent<PlayerStatistics>().Score += currentScoreReward;
+        if (isDead)
+            return;
+
         currentHealth -= damageAmount;
+        HandleDamageSounds(audioClipsDamage);
+
+        if (playerTarget != null)
+        {
+            playerTarget.GetComponent<PlayerStatistics>().Score += currentScoreReward;
+        }
     }
 
     private void InitializeEnemy()
@@ -69,6 +84,10 @@ public class EnemyStatistics : MonoBehaviour
         currentScoreReward = Random.Range(minScoreReward, maxScoreReward);
         timeSinceLastAttack = attackCooldown;
         playerTarget = GameObject.FindGameObjectWithTag("Player");
+
+        if (playerTarget == null)
+            return;
+
         skinnedMeshRenderer = enemyModels[indexPlayerModel].GetComponentInChildren<SkinnedMeshRenderer>();
 
         if (skinnedMeshRenderer != null)
@@ -90,6 +109,9 @@ public class EnemyStatistics : MonoBehaviour
 
     private void HandleAIState()
     {
+        if (isDead)
+            return;
+
         switch (CurrentState)
         {
             case AIState.Pursue:
@@ -105,7 +127,7 @@ public class EnemyStatistics : MonoBehaviour
     private void PursuePlayer()
     {
         animator.SetBool("Walk", true);
-        enemyMovement?.MoveTowardsPlayer(playerTarget.transform.position, this);
+        enemyMovement?.MoveTowardsPlayer(playerTarget.transform.position, audioSource, this);
         timeSinceLastAttack = attackCooldown;
     }
 
@@ -117,19 +139,11 @@ public class EnemyStatistics : MonoBehaviour
 
         if (enemyAttackInterface != null && timeSinceLastAttack >= attackCooldown)
         {
-            navMeshAgent.Stop();
             animator.SetTrigger("Attack");
-            Invoke("PerformAttackAfterDelay", 1f);
+            enemyAttackInterface.Attack(audioSource);
+            StartCoroutine(AttackCooldown());
             timeSinceLastAttack = 0;
         }
-    }
-
-    private void PerformAttackAfterDelay()
-    {
-        if (currentHealth == 0)
-            return;
-        navMeshAgent.Resume();
-        enemyAttackInterface.Attack(this);
     }
 
     private void LookAtPlayer()
@@ -146,22 +160,73 @@ public class EnemyStatistics : MonoBehaviour
 
     private void Death()
     {
-        animator.SetTrigger("Dying");
+        if (isDead)
+            return;
+
+        isDead = true;
 
         GetComponent<Collider>().enabled = false;
-        navMeshAgent.Stop();
+        animator.SetTrigger("Dying");
+        HandleDamageSounds(audioClipsDeath);
 
-        enemyMovement.enabled = false;
-        enemyAttack.enabled = false;
+        if (navMeshAgent != null)
+        {
+            navMeshAgent.isStopped = true;
+            navMeshAgent.enabled = false;
+        }
+
+        if (enemyMovement != null)
+        {
+            enemyMovement.enabled = false;
+        }
+
+        if (enemyAttack != null)
+        {
+            enemyAttack.enabled = false;
+        }
 
         StartCoroutine(DissolveEffect());
-
         Destroy(gameObject, 1.6f);
+    }
+
+    private void HandleDamageSounds(List<AudioClip> audioClips)
+    {
+        if (audioSource == null || audioClipsDamage == null || audioClipsDamage.Count == 0)
+            return;
+
+        if (!isPlaying)
+        {
+            PlayRandomSound(audioClips);
+        }
+        else if (!audioSource.isPlaying)
+        {
+            isPlaying = false;
+            PlayRandomSound(audioClips);
+        }
+    }
+
+    private void PlayRandomSound(List<AudioClip> audioClips)
+    {
+        int randomIndex = Random.Range(0, audioClips.Count);
+        currentClip = audioClips[randomIndex];
+
+        audioSource.clip = currentClip;
+        audioSource.Play();
+        isPlaying = true;
+    }
+
+    private void UpdateAIState()
+    {
+        if (isDead)
+            return;
+
+        float distanceToPlayer = Vector3.Distance(transform.position, playerTarget.transform.position);
+        CurrentState = distanceToPlayer < attackRange ? AIState.Attack : AIState.Pursue;
     }
 
     IEnumerator DissolveEffect()
     {
-        if (materials.Length > 0)
+        if (materials != null && materials.Length > 0)
         {
             float counter = 0;
 
@@ -179,9 +244,15 @@ public class EnemyStatistics : MonoBehaviour
         }
     }
 
-    private void UpdateAIState()
+    IEnumerator AttackCooldown()
     {
-        float distanceToPlayer = Vector3.Distance(transform.position, playerTarget.transform.position);
-        CurrentState = distanceToPlayer < attackRange ? AIState.Attack : AIState.Pursue;
+        navMeshAgent.isStopped = true;
+
+        yield return new WaitForSeconds(1.4f);
+
+        if (!isDead && navMeshAgent != null)
+        {
+            navMeshAgent.isStopped = false;
+        }
     }
 }

@@ -18,31 +18,18 @@ public class ShopManager : MonoBehaviour, IInteractive
         {
             productPriceDisplayText.text = $"Price: {price}";
         }
-        else
-        {
-            Debug.LogError("Product Price Display Text is not assigned!", this);
-        }
     }
 
     public void Interactive(PlayerStatistics playerStatistics, InputListener inputListener, PlayerShooting playerShoot, Transform weaponHandler)
     {
         if (playerStatistics == null)
-        {
-            Debug.LogError("Player Statistics is not assigned!", this);
             return;
-        }
 
         if (inputListener == null && _TypeObject == TypeObject.Weapon)
-        {
-            Debug.LogError("Input Listener is not assigned for weapon purchase!", this);
             return;
-        }
 
         if (playerStatistics.Score < price)
-        {
-            Debug.LogWarning("Not enough score to purchase the item!", this);
             return;
-        }
 
         if (_TypeObject == TypeObject.Weapon)
         {
@@ -74,10 +61,6 @@ public class ShopManager : MonoBehaviour, IInteractive
             transform.SetParent(weaponHandler);
             CompletePurchase();
         }
-        else
-        {
-            Debug.LogError("Input Listener or Player Shooting is not assigned!", this);
-        }
     }
 
     private void PurchaseFirstAid(PlayerStatistics playerStatistics)
@@ -92,10 +75,6 @@ public class ShopManager : MonoBehaviour, IInteractive
         if (boxCollider != null)
         {
             boxCollider.enabled = false;
-        }
-        else
-        {
-            Debug.LogError("BoxCollider is not attached to the ShopManager!", this);
         }
 
         transform.localPosition = Vector3.zero;

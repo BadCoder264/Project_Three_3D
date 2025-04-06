@@ -37,10 +37,7 @@ public class PlayerMelee : MonoBehaviour
     private void TriggerAttackAnimation()
     {
         if (animator == null)
-        {
-            Debug.LogError("Animator is not assigned!", this);
             return;
-        }
 
         animator.SetTrigger("Attack");
     }
@@ -50,10 +47,7 @@ public class PlayerMelee : MonoBehaviour
         int actualDamage = attackDamage;
 
         if (attackPoint == null)
-        {
-            Debug.LogError("Attack Point is not assigned!", this);
             return;
-        }
 
         Collider[] enemies = Physics.OverlapSphere(attackPoint.position, attackRange, targetLayerMask);
         foreach (var enemy in enemies)
@@ -65,16 +59,9 @@ public class PlayerMelee : MonoBehaviour
 
     private void UpdateUI()
     {
-        if (gameObject.activeSelf)
+        if (gameObject.activeSelf && ammoText != null)
         {
-            if (ammoText != null)
-            {
-                ammoText.text = "";
-            }
-            else
-            {
-                Debug.LogError("Ammo Text is not assigned!", this);
-            }
+            ammoText.text = "";
         }
     }
 }

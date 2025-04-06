@@ -18,6 +18,11 @@ public class UpgradeManager : MonoBehaviour, IInteractive
                 roomStatics[i].LevelRoom = PlayerPrefs.GetInt("RoomLevel_" + i);
             }
 
+            if (PlayerPrefs.HasKey("RoomPrice_" + i))
+            {
+                roomStatics[i].PriseLevelRoom = PlayerPrefs.GetInt("RoomPrice_" + i);
+            }
+
             if (PlayerPrefs.HasKey("RoomOpen_" + i))
             {
                 int roomOpenValue = PlayerPrefs.GetInt("RoomOpen_" + i);
@@ -25,16 +30,18 @@ public class UpgradeManager : MonoBehaviour, IInteractive
 
             roomStatics[i].IsOpen = PlayerPrefs.HasKey("RoomOpen_" + i) ? false : true;
             roomStatics[i].DoorRoom.SetActive(roomStatics[i].IsOpen);
+
+            if (roomStatics[i].LevelRoom >= 5)
+            {
+                roomStatics[i].Button.interactable = false;
+            }
         }
     }
 
     public void Interactive(PlayerStatistics playerStatistics, InputListener inputListener, PlayerShooting playerShoot, Transform weaponHandler)
     {
         if (upgradeUi == null || this.inputListener == null)
-        {
-            Debug.LogError("Upgrade UI or Input Listener is not assigned!", this);
             return;
-        }
 
         upgradeUi.SetActive(true);
         this.inputListener.enabled = false;
@@ -48,13 +55,16 @@ public class UpgradeManager : MonoBehaviour, IInteractive
         PlayerStatistics playerStatistics = FindObjectOfType<PlayerStatistics>();
 
         if (roomStatics == null || indexRoom < 0 || indexRoom >= roomStatics.Count)
-        {
-            Debug.LogError("Room Statics list is not assigned or index is out of range!", this);
             return;
-        }
 
-        if (roomStatics[indexRoom].PriseLevelRoom <= playerStatistics.Score && roomStatics[indexRoom].LevelRoom < roomStatics.Count)
+        if (roomStatics[indexRoom].PriseLevelRoom <= playerStatistics.Score && roomStatics[indexRoom].LevelRoom < 5)
         {
+            playerStatistics.Score -= roomStatics[indexRoom].PriseLevelRoom;
+
+            roomStatics[indexRoom].PriseLevelRoom += Mathf.RoundToInt(roomStatics[indexRoom].PriseLevelRoom * 0.12f);
+
+            PlayerPrefs.SetInt("RoomPrice_" + indexRoom, roomStatics[indexRoom].PriseLevelRoom);
+
             roomStatics[indexRoom].LevelRoom++;
             PlayerPrefs.SetInt("RoomLevel_" + indexRoom, roomStatics[indexRoom].LevelRoom);
 
@@ -80,16 +90,19 @@ public class UpgradeManager : MonoBehaviour, IInteractive
             roomStatics[indexRoom].IsOpen = true;
             roomStatics[indexRoom].DoorRoom.SetActive(!roomStatics[indexRoom].IsOpen);
             PlayerPrefs.SetInt("RoomOpen_" + indexRoom, roomStatics[indexRoom].IsOpen ? 1 : 0);
+
+            MouseEnterEvent(indexRoom);
+        }
+        else if (roomStatics[indexRoom].LevelRoom >= 5)
+        {
+            roomStatics[indexRoom].Button.interactable = false;
         }
     }
 
     public void ExitTheUpgrade()
     {
         if (upgradeUi == null || inputListener == null)
-        {
-            Debug.LogError("Upgrade UI or Input Listener is not assigned!", this);
             return;
-        }
 
         upgradeUi.SetActive(false);
         this.inputListener.enabled = true;
@@ -101,10 +114,7 @@ public class UpgradeManager : MonoBehaviour, IInteractive
     public void MouseEnterEvent(int indexRoom)
     {
         if (roomStatics == null || indexRoom < 0 || indexRoom >= roomStatics.Count || descriptionUpgradeUi == null)
-        {
-            Debug.LogError("Room Statics list is not assigned, index is out of range, or Description UI is not assigned!", this);
             return;
-        }
 
         descriptionUpgradeUi.text = roomStatics[indexRoom].DescriptionRoom + "\n Current level: " + roomStatics[indexRoom].LevelRoom + "\n You need: " + roomStatics[indexRoom].PriseLevelRoom;
     }
@@ -114,10 +124,6 @@ public class UpgradeManager : MonoBehaviour, IInteractive
         if (descriptionUpgradeUi != null)
         {
             descriptionUpgradeUi.text = "";
-        }
-        else
-        {
-            Debug.LogError("Description Upgrade UI TextMeshPro component is not assigned!", this);
         }
     }
 }

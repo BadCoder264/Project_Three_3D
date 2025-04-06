@@ -22,11 +22,6 @@ public class MenuManager : MonoBehaviour
         LoadAll();
     }
 
-    public void Settings()
-    {
-
-    }
-
     public void Quit()
     {
         Application.Quit();
@@ -45,16 +40,10 @@ public class MenuManager : MonoBehaviour
     private void LoadAll()
     {
         if (playerStatistics == null)
-        {
-            Debug.LogError("PlayerStatistics not found!");
             return;
-        }
 
         if (upgradeManager == null)
-        {
-            Debug.LogError("UpgradeManager not found!");
             return;
-        }
 
         playerStatistics.LoadUpgrade();
         upgradeManager.LoadUpgrade();
