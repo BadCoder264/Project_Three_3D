@@ -85,10 +85,7 @@ public class WaveManager : MonoBehaviour, IInteractive
         if (waveIndex < 30)
             return 1;
 
-        if (waveIndex < 45)
-            return 2;
-
-        return 3;
+        return 0;
     }
 
     private void UpdateUI()

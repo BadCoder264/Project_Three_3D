@@ -2,10 +2,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EnemyMelee : MonoBehaviour, IEnemyAttack
+public class EnemyMelee : MonoBehaviour
 {
     [SerializeField] private int attackDamage;
     [SerializeField] private float attackRadius;
+    [SerializeField] private float attackDamageTime;
+    [SerializeField] private float attackSoundTime;
     [SerializeField] private LayerMask playerLayer;
     [SerializeField] private List<AudioClip> audioClips;
 
@@ -17,26 +19,13 @@ public class EnemyMelee : MonoBehaviour, IEnemyAttack
 
         if (audioSource != null && audioClips != null && audioClips.Count > 0)
         {
-            PlayRandomSound(audioSource);
+            StartCoroutine(SoundEffectLogic(audioSource));
         }
-        else if (audioSource != null)
-        {
-            PlayRandomSound(audioSource);
-        }
-    }
-
-    private void PlayRandomSound(AudioSource audioSource)
-    {
-        int randomIndex = Random.Range(0, audioClips.Count);
-        currentClip = audioClips[randomIndex];
-
-        audioSource.clip = currentClip;
-        audioSource.Play();
     }
 
     IEnumerator AttackLogic()
     {
-        yield return new WaitForSeconds(0.85f);
+        yield return new WaitForSeconds(attackDamageTime);
 
         Collider[] hits = Physics.OverlapSphere(transform.position, attackRadius, playerLayer);
 
@@ -47,5 +36,16 @@ public class EnemyMelee : MonoBehaviour, IEnemyAttack
                 hit.GetComponent<PlayerStatistics>()?.Damage(attackDamage);
             }
         }
+    }
+
+    IEnumerator SoundEffectLogic(AudioSource audioSource)
+    {
+        int randomIndex = Random.Range(0, audioClips.Count);
+        currentClip = audioClips[randomIndex];
+
+        yield return new WaitForSeconds(attackSoundTime);
+
+        audioSource.clip = currentClip;
+        audioSource.Play();
     }
 }

@@ -33,7 +33,7 @@ public class EnemyStatistics : MonoBehaviour
     [SerializeField] private List<AudioClip> audioClipsDamage;
     [SerializeField] private List<AudioClip> audioClipsDeath;
     [SerializeField] private EnemyMovement enemyMovement;
-    [SerializeField] private MonoBehaviour enemyAttack;
+    [SerializeField] private EnemyMelee enemyMelee;
 
     private int _currentHealth;
     private int currentScoreReward;
@@ -42,7 +42,6 @@ public class EnemyStatistics : MonoBehaviour
     private float refreshRate = 0.025f;
     private bool isDead = false;
     private bool isPlaying = false;
-    private IEnemyAttack enemyAttackInterface;
     private SkinnedMeshRenderer skinnedMeshRenderer;
     private AudioClip currentClip;
     private Animator animator;
@@ -96,7 +95,6 @@ public class EnemyStatistics : MonoBehaviour
         }
 
         animator = enemyModels[indexPlayerModel].GetComponent<Animator>();
-        enemyAttackInterface = enemyAttack as IEnemyAttack;
     }
 
     private void ActivateEnemyModel(int index)
@@ -137,10 +135,10 @@ public class EnemyStatistics : MonoBehaviour
         LookAtPlayer();
         timeSinceLastAttack += Time.deltaTime;
 
-        if (enemyAttackInterface != null && timeSinceLastAttack >= attackCooldown)
+        if (enemyMelee != null && timeSinceLastAttack >= attackCooldown)
         {
             animator.SetTrigger("Attack");
-            enemyAttackInterface.Attack(audioSource);
+            enemyMelee.Attack(audioSource);
             StartCoroutine(AttackCooldown());
             timeSinceLastAttack = 0;
         }
@@ -180,9 +178,9 @@ public class EnemyStatistics : MonoBehaviour
             enemyMovement.enabled = false;
         }
 
-        if (enemyAttack != null)
+        if (enemyMelee != null)
         {
-            enemyAttack.enabled = false;
+            enemyMelee.enabled = false;
         }
 
         StartCoroutine(DissolveEffect());
@@ -191,7 +189,7 @@ public class EnemyStatistics : MonoBehaviour
 
     private void HandleDamageSounds(List<AudioClip> audioClips)
     {
-        if (audioSource == null || audioClipsDamage == null || audioClipsDamage.Count == 0)
+        if (audioSource == null || audioClipsDeath == null || audioClipsDeath.Count == 0)
             return;
 
         if (!isPlaying)

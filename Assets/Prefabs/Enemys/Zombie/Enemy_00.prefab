@@ -18199,7 +18199,7 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 8e8a01308558bfb4789e6f36ea1d0b7b, type: 3}
   - {fileID: 8300000, guid: 1f684559aa2d600468adb92173fdee12, type: 3}
   enemyMovement: {fileID: 1659828848796010376}
-  enemyAttack: {fileID: 498966399113955925}
+  enemyMelee: {fileID: 498966399113955925}
 --- !u!114 &1659828848796010376
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -29026,6 +29026,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   attackDamage: 2
   attackRadius: 0.4
+  attackDamageTime: 0.85
+  attackSoundTime: 0
   playerLayer:
     serializedVersion: 2
     m_Bits: 8
