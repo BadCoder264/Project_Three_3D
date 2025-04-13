@@ -16191,7 +16191,7 @@ AudioSource:
   SpatializePostEffects: 0
   Priority: 128
   DopplerLevel: 1
-  MinDistance: 1
+  MinDistance: 4
   MaxDistance: 500
   Pan2D: 0
   rolloffMode: 0
@@ -16227,7 +16227,7 @@ AudioSource:
     m_Curve:
     - serializedVersion: 3
       time: 0
-      value: 0
+      value: 1
       inSlope: 0
       outSlope: 0
       tangentMode: 0
@@ -18199,6 +18199,8 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 8e8a01308558bfb4789e6f36ea1d0b7b, type: 3}
   - {fileID: 8300000, guid: 1f684559aa2d600468adb92173fdee12, type: 3}
   enemyMovement: {fileID: 1659828848796010376}
+  damageEffect: {fileID: 198107820186352126, guid: b369efb4abe69e044890b664115fab9e,
+    type: 3}
   enemyMelee: {fileID: 498966399113955925}
 --- !u!114 &1659828848796010376
 MonoBehaviour:

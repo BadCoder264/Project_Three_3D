@@ -85,6 +85,10 @@ public class Interactive : MonoBehaviour
         {
             interactivePromptText.text = $"Press {inputListener.interactiveKey} to Upgrade the Room";
         }
+        else if (hit.collider.TryGetComponent<RadioManager>(out _))
+        {
+            interactivePromptText.text = $"Press {inputListener.interactiveKey} to Chouse the Music";
+        }
         else
         {
             interactivePromptText.text = "";

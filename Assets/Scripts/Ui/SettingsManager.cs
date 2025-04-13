@@ -8,7 +8,6 @@ using System.Linq;
 public class SettingsManager : MonoBehaviour
 {
     [SerializeField] private TMP_Dropdown qualityDropdown;
-    [SerializeField] private Toggle vsyncToggle;
     [SerializeField] private TMP_Dropdown antiAliasingDropdown;
     [SerializeField] private TMP_Dropdown resolutionDropdown;
     [SerializeField] private AudioMixer audioMixer;
@@ -29,9 +28,6 @@ public class SettingsManager : MonoBehaviour
         qualityDropdown.AddOptions(new List<string>(QualitySettings.names));
         qualityDropdown.value = QualitySettings.GetQualityLevel();
         qualityDropdown.onValueChanged.AddListener(SetQualityLevel);
-
-        vsyncToggle.isOn = QualitySettings.vSyncCount > 0;
-        vsyncToggle.onValueChanged.AddListener(SetVSync);
 
         antiAliasingDropdown.value = QualitySettings.antiAliasing / 2;
         antiAliasingDropdown.onValueChanged.AddListener(SetAntiAliasing);
@@ -93,11 +89,6 @@ public class SettingsManager : MonoBehaviour
     public void SetQualityLevel(int index)
     {
         QualitySettings.SetQualityLevel(index, true);
-    }
-
-    public void SetVSync(bool enable)
-    {
-        QualitySettings.vSyncCount = enable ? 1 : 0;
     }
 
     public void SetResolutionScale(float scale)

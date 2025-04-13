@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class WaveManager : MonoBehaviour, IInteractive
 {
@@ -10,16 +11,17 @@ public class WaveManager : MonoBehaviour, IInteractive
     [SerializeField] private int overallMaxEnemies;
     [SerializeField] private float minSpawnIntervalEnemies;
     [SerializeField] private float maxSpawnIntervalEnemies;
+    [SerializeField] private float returnTimer;
     [SerializeField] private List<GameObject> enemyPrefabs;
     [SerializeField] private List<Transform> spawnPoints;
     [SerializeField] private TMP_Text waveDisplayText;
     [SerializeField] private Slider enemyCountSlider;
 
     private int currentWaveIndex;
-    private bool isWaveActive;
-    private List<GameObject> activeEnemies = new List<GameObject>();
-
     private int IncreaseEnemyCount = 5;
+    private bool isWaveActive;
+    private bool isReturning = false;
+    private List<GameObject> activeEnemies = new List<GameObject>();
 
     private void Start()
     {
@@ -35,18 +37,36 @@ public class WaveManager : MonoBehaviour, IInteractive
             isWaveActive = false;
         }
 
+        if (isReturning)
+        {
+            returnTimer -= Time.deltaTime;
+
+            if (returnTimer <= 0f)
+            {
+                SceneManager.LoadScene(0);
+                return;
+            }
+        }
+
         UpdateUI();
     }
 
     public void Interactive(PlayerStatistics playerStatistics, InputListener inputListener, PlayerShooting playerShoot, Transform weaponHandler)
     {
-        if (!isWaveActive)
+        if (!isWaveActive && !isReturning)
         {
-            currentWaveIndex++;
-            currentWaveMaxEnemies = Mathf.Min(currentWaveMaxEnemies + IncreaseEnemyCount, overallMaxEnemies);
-            isWaveActive = true;
+            if (currentWaveIndex > 34)
+            {
+                isReturning = true;
+            }
+            else
+            {
+                currentWaveIndex++;
+                currentWaveMaxEnemies = Mathf.Min(currentWaveMaxEnemies + IncreaseEnemyCount, overallMaxEnemies);
+                isWaveActive = true;
 
-            StartCoroutine(SpawnEnemiesCoroutine(Random.Range(minSpawnIntervalEnemies, maxSpawnIntervalEnemies)));
+                StartCoroutine(SpawnEnemiesCoroutine(Random.Range(minSpawnIntervalEnemies, maxSpawnIntervalEnemies)));
+            }
         }
     }
 
@@ -79,11 +99,17 @@ public class WaveManager : MonoBehaviour, IInteractive
 
     private int GetMaxEnemyTypeIndex(int waveIndex)
     {
-        if (waveIndex < 15)
+        if (waveIndex < 6)
             return 0;
 
-        if (waveIndex < 30)
+        if (waveIndex < 12)
             return 1;
+
+        if (waveIndex < 18)
+            return 2;
+
+        if (waveIndex < 24)
+            return 3;
 
         return 0;
     }
@@ -92,7 +118,14 @@ public class WaveManager : MonoBehaviour, IInteractive
     {
         if (waveDisplayText != null)
         {
-            waveDisplayText.text = $"Wave: {currentWaveIndex}";
+            if (isReturning)
+            {
+                waveDisplayText.text = $"Time until return: {returnTimer.ToString("F2")}";
+            }
+            else
+            {
+                waveDisplayText.text = $"Wave: {currentWaveIndex}";
+            }
         }
 
         if (enemyCountSlider != null)

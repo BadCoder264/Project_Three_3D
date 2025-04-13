@@ -33,6 +33,7 @@ public class EnemyStatistics : MonoBehaviour
     [SerializeField] private List<AudioClip> audioClipsDamage;
     [SerializeField] private List<AudioClip> audioClipsDeath;
     [SerializeField] private EnemyMovement enemyMovement;
+    [SerializeField] private ParticleSystem damageEffect;
     [SerializeField] private EnemyMelee enemyMelee;
 
     private int _currentHealth;
@@ -68,6 +69,8 @@ public class EnemyStatistics : MonoBehaviour
 
         currentHealth -= damageAmount;
         HandleDamageSounds(audioClipsDamage);
+        GameObject effect = Instantiate(damageEffect.gameObject, new Vector3(transform.position.x, transform.position.y + 1, transform.position.z), transform.rotation);
+        Destroy(effect, 5f);
 
         if (playerTarget != null)
         {
