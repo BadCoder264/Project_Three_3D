@@ -326,8 +326,8 @@ MonoBehaviour:
   navMeshAgent: {fileID: 8928818609600308585}
   minHealth: 8
   maxHealth: 12
-  minScoreReward: 4
-  maxScoreReward: 8
+  minScoreReward: 1
+  maxScoreReward: 2
   attackRange: 1.4
   attackCooldown: 2.6
   enemyModels:
@@ -437,7 +437,7 @@ Transform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!95 &1716040958382209369
 Animator:
-  serializedVersion: 7
+  serializedVersion: 5
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -451,7 +451,6 @@ Animator:
   m_ApplyRootMotion: 0
   m_LinearVelocityBlending: 0
   m_StabilizeFeet: 0
-  m_AnimatePhysics: 0
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
@@ -597,7 +596,6 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: -3190717536064827626, guid: f7f952e372d1bc649bce6ce6dcc4d7a5,
     type: 2}
   m_audioClip: {fileID: 0}
-  m_Resource: {fileID: 0}
   m_PlayOnAwake: 1
   m_Volume: 1
   m_Pitch: 1
@@ -982,9 +980,6 @@ SkinnedMeshRenderer:
   m_ReflectionProbeUsage: 1
   m_RayTracingMode: 3
   m_RayTraceProcedural: 0
-  m_RayTracingAccelStructBuildFlagsOverride: 0
-  m_RayTracingAccelStructBuildFlags: 1
-  m_SmallMeshCulling: 1
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:

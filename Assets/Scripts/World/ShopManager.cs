@@ -16,7 +16,7 @@ public class ShopManager : MonoBehaviour, IInteractive
     {
         if (productPriceDisplayText)
         {
-            productPriceDisplayText.text = $"Price: {price}";
+            productPriceDisplayText.text = $"Score: {price}";
         }
     }
 
