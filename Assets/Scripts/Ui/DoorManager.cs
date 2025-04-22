@@ -5,6 +5,7 @@ public class DoorManager : MonoBehaviour, IInteractive
 {
     [SerializeField] private GameObject selectLocationUi;
     [SerializeField] private InputListener inputListener;
+    [SerializeField] private SaveOrLoad saveOrLoad;
 
     public void Interactive(PlayerStatistics playerStatistics, InputListener inputListener, PlayerShooting playerShoot, Transform weaponHandler)
     {
@@ -40,6 +41,11 @@ public class DoorManager : MonoBehaviour, IInteractive
 
     public void ChooseLocation(string nameLocation)
     {
+        if (saveOrLoad == null)
+            return;
+
+        saveOrLoad.SavePlayer();
+
         if (string.IsNullOrEmpty(nameLocation))
             return;
 

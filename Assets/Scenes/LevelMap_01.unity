@@ -2750,6 +2750,52 @@ Transform:
   m_Children: []
   m_Father: {fileID: 895643369}
   m_LocalEulerAnglesHint: {x: 0, y: 180, z: 0}
+--- !u!1 &181522771
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 181522773}
+  - component: {fileID: 181522772}
+  m_Layer: 0
+  m_Name: SaveOrLoad
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &181522772
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 181522771}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f6dd41b4d4f73314ebf93baa069044fb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerStatistics: {fileID: 214956267}
+  upgradeManager: {fileID: 0}
+--- !u!4 &181522773
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 181522771}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &181547441
 GameObject:
   m_ObjectHideFlags: 0
@@ -5449,6 +5495,11 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 178026562751580564, guid: e2f36e71e2c096b49b9b9913d31ec522,
+        type: 3}
+      propertyPath: saveOrLoad
+      value: 
+      objectReference: {fileID: 181522772}
     - target: {fileID: 1546621174985989806, guid: e2f36e71e2c096b49b9b9913d31ec522,
         type: 3}
       propertyPath: m_AnchorMax.x
@@ -9099,6 +9150,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a214909ccae2294449afa3da0601537f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  currentWaveIndex: 0
   currentWaveMaxEnemies: 5
   overallMaxEnemies: 45
   minSpawnIntervalEnemies: 1.2
@@ -9115,6 +9167,7 @@ MonoBehaviour:
   - {fileID: 117141949}
   waveDisplayText: {fileID: 562404531}
   enemyCountSlider: {fileID: 831797214}
+  saveOrLoad: {fileID: 181522772}
 --- !u!64 &910365689
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -20340,3 +20393,4 @@ SceneRoots:
   m_Roots:
   - {fileID: 709139830}
   - {fileID: 443020048}
+  - {fileID: 181522773}

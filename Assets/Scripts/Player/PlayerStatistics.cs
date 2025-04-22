@@ -28,13 +28,18 @@ public class PlayerStatistics : MonoBehaviour
     [SerializeField] private int maxHealth;
     [SerializeField] private TMP_Text scoreDisplayText;
     [SerializeField] private Slider healthSlider;
+    [SerializeField] private SaveOrLoad saveOrLoad;
 
     private int currentHealth;
     private float healthRegenTimer = 0f;
 
     private void Start()
     {
-        LoadUpgrade();
+        if (saveOrLoad == null)
+            return;
+
+        saveOrLoad.LoadPlayer();
+
         InitializeUI();
     }
 
@@ -42,33 +47,6 @@ public class PlayerStatistics : MonoBehaviour
     {
         UpdateUI();
         HealthRegeneration();
-    }
-
-    public void LoadUpgrade()
-    {
-        IsMedicalUpgrade = PlayerPrefs.HasKey("HealthRecoveryPercentage");
-        IsTrainingUpgrade = PlayerPrefs.HasKey("RecoilReductionPercentage");
-        IsCraftingUpgrade = PlayerPrefs.HasKey("DamageIncreasePercentage");
-
-        if (IsMedicalUpgrade)
-        {
-            HealthRecoveryPercentage = PlayerPrefs.GetInt("HealthRecoveryPercentage");
-        }
-
-        if (IsTrainingUpgrade)
-        {
-            RecoilReductionPercentage = PlayerPrefs.GetInt("RecoilReductionPercentage");
-        }
-
-        if (IsCraftingUpgrade)
-        {
-            DamageIncreasePercentage = PlayerPrefs.GetInt("DamageIncreasePercentage");
-        }
-
-        if (PlayerPrefs.HasKey("SavedScore"))
-        {
-            Score = PlayerPrefs.GetInt("SavedScore");
-        }
     }
 
     public void Damage(int damageAmount)
@@ -89,7 +67,11 @@ public class PlayerStatistics : MonoBehaviour
 
     private void Death()
     {
-        PlayerPrefs.SetInt("SavedScore", Score);
+        if (saveOrLoad == null)
+            return;
+
+        saveOrLoad.SavePlayer();
+
         SceneManager.LoadScene("MainMenu");
     }
 

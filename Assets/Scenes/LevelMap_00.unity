@@ -5572,6 +5572,11 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 178026562751580564, guid: e2f36e71e2c096b49b9b9913d31ec522,
+        type: 3}
+      propertyPath: saveOrLoad
+      value: 
+      objectReference: {fileID: 1257669734}
     - target: {fileID: 1546621174985989806, guid: e2f36e71e2c096b49b9b9913d31ec522,
         type: 3}
       propertyPath: m_AnchorMax.x
@@ -5663,6 +5668,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &522667771 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 178026562751580564, guid: e2f36e71e2c096b49b9b9913d31ec522,
+    type: 3}
+  m_PrefabInstance: {fileID: 522667768}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 91e76edc5fd33ce4594b0cbcf39df629, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &537920272
@@ -17998,6 +18015,52 @@ Mesh:
     offset: 0
     size: 0
     path: 
+--- !u!1 &1257669733
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1257669735}
+  - component: {fileID: 1257669734}
+  m_Layer: 0
+  m_Name: SaveOrLoad
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1257669734
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1257669733}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f6dd41b4d4f73314ebf93baa069044fb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerStatistics: {fileID: 522667771}
+  upgradeManager: {fileID: 0}
+--- !u!4 &1257669735
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1257669733}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1278334490
 GameObject:
   m_ObjectHideFlags: 0
@@ -18276,6 +18339,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a214909ccae2294449afa3da0601537f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  currentWaveIndex: 0
   currentWaveMaxEnemies: 25
   overallMaxEnemies: 5
   minSpawnIntervalEnemies: 1.2
@@ -18290,6 +18354,7 @@ MonoBehaviour:
   - {fileID: 584576235}
   waveDisplayText: {fileID: 605572328}
   enemyCountSlider: {fileID: 59292878}
+  saveOrLoad: {fileID: 1257669734}
 --- !u!64 &1296361079
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -29527,3 +29592,4 @@ SceneRoots:
   m_Roots:
   - {fileID: 1982852976}
   - {fileID: 522667768}
+  - {fileID: 1257669735}

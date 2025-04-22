@@ -5348,6 +5348,52 @@ MonoBehaviour:
   m_SelectedFaces: 
   m_SelectedEdges: []
   m_SelectedVertices: 
+--- !u!1 &635821315
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 635821317}
+  - component: {fileID: 635821316}
+  m_Layer: 0
+  m_Name: SaveOrLoad
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &635821316
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 635821315}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f6dd41b4d4f73314ebf93baa069044fb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerStatistics: {fileID: 1385043608}
+  upgradeManager: {fileID: 0}
+--- !u!4 &635821317
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 635821315}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &663403772
 GameObject:
   m_ObjectHideFlags: 0
@@ -10747,6 +10793,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a214909ccae2294449afa3da0601537f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  currentWaveIndex: 0
   currentWaveMaxEnemies: 40
   overallMaxEnemies: 5
   minSpawnIntervalEnemies: 1.2
@@ -10763,6 +10810,7 @@ MonoBehaviour:
   - {fileID: 977339039}
   waveDisplayText: {fileID: 479215062}
   enemyCountSlider: {fileID: 161447472}
+  saveOrLoad: {fileID: 635821316}
 --- !u!64 &1300630191
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -11778,6 +11826,11 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 178026562751580564, guid: e2f36e71e2c096b49b9b9913d31ec522,
+        type: 3}
+      propertyPath: saveOrLoad
+      value: 
+      objectReference: {fileID: 635821316}
     - target: {fileID: 1546621174985989806, guid: e2f36e71e2c096b49b9b9913d31ec522,
         type: 3}
       propertyPath: m_AnchorMax.x
@@ -11869,6 +11922,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: c956bc4ff339ad3459bdc55af22a1284, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1385043608 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 178026562751580564, guid: e2f36e71e2c096b49b9b9913d31ec522,
+    type: 3}
+  m_PrefabInstance: {fileID: 1385043605}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 91e76edc5fd33ce4594b0cbcf39df629, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &1397719753
@@ -20413,3 +20478,4 @@ SceneRoots:
   m_Roots:
   - {fileID: 2084423226}
   - {fileID: 1385043605}
+  - {fileID: 635821317}

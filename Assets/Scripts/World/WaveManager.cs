@@ -7,6 +7,7 @@ using UnityEngine.SceneManagement;
 
 public class WaveManager : MonoBehaviour, IInteractive
 {
+    [SerializeField] private int currentWaveIndex;
     [SerializeField] private int currentWaveMaxEnemies;
     [SerializeField] private int overallMaxEnemies;
     [SerializeField] private float minSpawnIntervalEnemies;
@@ -16,8 +17,8 @@ public class WaveManager : MonoBehaviour, IInteractive
     [SerializeField] private List<Transform> spawnPoints;
     [SerializeField] private TMP_Text waveDisplayText;
     [SerializeField] private Slider enemyCountSlider;
+    [SerializeField] private SaveOrLoad saveOrLoad;
 
-    private int currentWaveIndex;
     private int IncreaseEnemyCount = 5;
     private bool isWaveActive;
     private bool isReturning = false;
@@ -43,6 +44,11 @@ public class WaveManager : MonoBehaviour, IInteractive
 
             if (returnTimer <= 0f)
             {
+                if (saveOrLoad == null)
+                    return;
+
+                saveOrLoad.SavePlayer();
+
                 SceneManager.LoadScene(0);
                 return;
             }

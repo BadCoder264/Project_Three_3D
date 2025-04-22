@@ -2,8 +2,7 @@ using UnityEngine;
 
 public class MenuManager : MonoBehaviour
 {
-    [SerializeField] private PlayerStatistics playerStatistics;
-    [SerializeField] private UpgradeManager upgradeManager;
+    [SerializeField] private SaveOrLoad saveOrLoad;
 
     private void Start()
     {
@@ -39,13 +38,10 @@ public class MenuManager : MonoBehaviour
 
     private void LoadAll()
     {
-        if (playerStatistics == null)
+        if (saveOrLoad == null)
             return;
 
-        if (upgradeManager == null)
-            return;
-
-        playerStatistics.LoadUpgrade();
-        upgradeManager.LoadUpgrade();
+        saveOrLoad.LoadPlayer();
+        saveOrLoad.LoadUpgrade();
     }
 }

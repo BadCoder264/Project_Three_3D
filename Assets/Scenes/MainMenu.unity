@@ -40956,6 +40956,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   selectLocationUi: {fileID: 1224264945}
   inputListener: {fileID: 995590382}
+  saveOrLoad: {fileID: 1702571047}
 --- !u!114 &1053885796
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -45217,8 +45218,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c3e4c3fadc9c7b1448595d75e03f3dc9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerStatistics: {fileID: 995590384}
-  upgradeManager: {fileID: 1462469384871233658}
+  saveOrLoad: {fileID: 0}
 --- !u!1 &1146987589
 GameObject:
   m_ObjectHideFlags: 0
@@ -74458,6 +74458,52 @@ Mesh:
     offset: 0
     size: 0
     path: 
+--- !u!1 &1702571046
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1702571048}
+  - component: {fileID: 1702571047}
+  m_Layer: 0
+  m_Name: SaveOrLoad
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1702571047
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1702571046}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f6dd41b4d4f73314ebf93baa069044fb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerStatistics: {fileID: 995590384}
+  upgradeManager: {fileID: 1462469384871233658}
+--- !u!4 &1702571048
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1702571046}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!43 &1711562830
 Mesh:
   m_ObjectHideFlags: 0
@@ -75657,6 +75703,11 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 178026562751580564, guid: e2f36e71e2c096b49b9b9913d31ec522,
+        type: 3}
+      propertyPath: saveOrLoad
+      value: 
+      objectReference: {fileID: 1702571047}
     - target: {fileID: 1546621174985989806, guid: e2f36e71e2c096b49b9b9913d31ec522,
         type: 3}
       propertyPath: m_AnchorMax.x
@@ -94524,9 +94575,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9c9a93c868af79540bd1f3a005d96544, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  upgradeUi: {fileID: 550800344}
-  descriptionUpgradeUi: {fileID: 1965907447}
-  inputListener: {fileID: 995590382}
   roomStatics:
   - DescriptionRoom: 'Medical Module:
 
@@ -94574,6 +94622,10 @@ MonoBehaviour:
     IsCraftingUpgrade: 1
     DoorRoom: {fileID: 653352251}
     Button: {fileID: 1281089374}
+  upgradeUi: {fileID: 550800344}
+  descriptionUpgradeUi: {fileID: 1965907447}
+  inputListener: {fileID: 995590382}
+  saveOrLoad: {fileID: 1702571047}
 --- !u!114 &1462469384871233659
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -95913,9 +95965,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9c9a93c868af79540bd1f3a005d96544, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  upgradeUi: {fileID: 550800344}
-  descriptionUpgradeUi: {fileID: 1965907447}
-  inputListener: {fileID: 995590382}
   roomStatics:
   - DescriptionRoom: 'Medical Module:
 
@@ -95964,6 +96013,10 @@ MonoBehaviour:
     IsCraftingUpgrade: 0
     DoorRoom: {fileID: 653352251}
     Button: {fileID: 0}
+  upgradeUi: {fileID: 550800344}
+  descriptionUpgradeUi: {fileID: 1965907447}
+  inputListener: {fileID: 995590382}
+  saveOrLoad: {fileID: 1702571047}
 --- !u!114 &1465157652102124521
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -100438,3 +100491,4 @@ SceneRoots:
   m_Roots:
   - {fileID: 103572547}
   - {fileID: 1748832704}
+  - {fileID: 1702571048}
